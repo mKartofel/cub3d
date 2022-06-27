@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/27 17:04:22 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/27 19:01:08 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,9 @@ int raycasting(t_vars *vars)
       if(side == 1) {color = color / 2;}
 
       //draw the pixels of the stripe as a vertical line
+	  draw_line(vars, x, 0, x, drawStart, vars->ceiling_color); //draw ceiling line
 	  draw_line(vars, x, drawStart, x, drawEnd, color);
+	  draw_line(vars, x, drawEnd, x, screenHeight, vars->floor_color); //draw floor line
     }
 
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img1.img, 0, 0);
@@ -345,6 +347,9 @@ int	main(int argc, char **argv)
 
     vars.moveSpeed = 0.11; //the constant value is in squares/second
     vars.rotSpeed = 0.11; //the constant value is in radians/second
+
+	vars.ceiling_color = 0x00D1FBFF;
+	vars.floor_color = 0x00A06528;
 	
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);

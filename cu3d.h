@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/27 16:42:57 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/27 18:51:52 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_vars {
 	double rotSpeed;
 	t_data img1;
 	t_data img2;
+	int ceiling_color;
+	int floor_color;
 }	t_vars;
 
 #endif
