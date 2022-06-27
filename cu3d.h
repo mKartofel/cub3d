@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/26 18:12:14 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/27 16:42:57 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,31 @@
 # include "mlx/mlx.h"
 # include "libft/libft.h"
 # include <math.h>
+# include <stdio.h>
+
+#include <time.h>
+
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
+
+typedef struct s_vars {
+	void	*mlx;
+	void	*win;
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	double moveSpeed;
+	double rotSpeed;
+	t_data img1;
+	t_data img2;
+}	t_vars;
 
 #endif
