@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/27 19:01:08 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/28 14:36:05 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,7 @@ int raycasting(t_vars *vars)
       }
       //Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
       //hit to the camera plane. Euclidean to center camera point would give fisheye effect!
-      //This can be computed as (mapX - vars->posX + (1 - stepX) / 2) / rayvars.dirX for side == 0, or same formula with Y
+      //This can be computed as (mapX - posX + (1 - stepX) / 2) / raydirX for side == 0, or same formula with Y
       //for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
       //because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
       //steps, but we subtract deltaDist once because one step more into the wall was taken above.
