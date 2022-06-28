@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/28 14:36:05 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:53:21 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,37 @@
 
 #define screenWidth 640
 #define screenHeight 480
+#define texWidth 64
+#define texHeight 64
 #define mapWidth 24
 #define mapHeight 24
 
 int worldMap[mapWidth][mapHeight]=
 {
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+  {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
+  {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
+  {4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
+  {4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
+  {4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
+  {4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
+  {4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
+  {4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
+  {4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
+  {4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
+  {4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
+  {4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
+  {6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
+  {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
+  {6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
+  {4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
+  {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
+  {4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
+  {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
+  {4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
+  {4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
+  {4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
+  {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
+  {4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
 };
 
 void	free_vars(t_vars *vars)
@@ -89,40 +91,40 @@ int	key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == 65307)
 		close_program(vars);
-    //move forward if no wall in front of you
-    if(keycode == 119)
-    {
-      if(worldMap[(int)(vars->posX + vars->dirX * vars->moveSpeed)][(int)(vars->posY)] == 0) vars->posX += vars->dirX * vars->moveSpeed;
-      if(worldMap[(int)(vars->posX)][(int)(vars->posY + vars->dirY * vars->moveSpeed)] == 0) vars->posY += vars->dirY * vars->moveSpeed;
-    }
-    //move backwards if no wall behind you
-    if(keycode == 115)
-    {
-      if(worldMap[(int)(vars->posX - vars->dirX * vars->moveSpeed)][(int)(vars->posY)] == 0) vars->posX -= vars->dirX * vars->moveSpeed;
-      if(worldMap[(int)(vars->posX)][(int)(vars->posY - vars->dirY * vars->moveSpeed)] == 0) vars->posY -= vars->dirY * vars->moveSpeed;
-    }
-    //rotate to the right
-    if(keycode == 100)
-    {
-      //both camera direction and camera plane must be rotated
-      double olddirX = vars->dirX;
-      vars->dirX = vars->dirX * cos(-vars->rotSpeed) - vars->dirY * sin(-vars->rotSpeed);
-      vars->dirY = olddirX * sin(-vars->rotSpeed) + vars->dirY * cos(-vars->rotSpeed);
-      double oldplaneX = vars->planeX;
-      vars->planeX = vars->planeX * cos(-vars->rotSpeed) - vars->planeY * sin(-vars->rotSpeed);
-      vars->planeY = oldplaneX * sin(-vars->rotSpeed) + vars->planeY * cos(-vars->rotSpeed);
-    }
-    //rotate to the left
-    if(keycode == 97)
-    {
-      //both camera direction and camera plane must be rotated
-      double olddirX = vars->dirX;
-      vars->dirX = vars->dirX * cos(vars->rotSpeed) - vars->dirY * sin(vars->rotSpeed);
-      vars->dirY = olddirX * sin(vars->rotSpeed) + vars->dirY * cos(vars->rotSpeed);
-      double oldplaneX = vars->planeX;
-      vars->planeX = vars->planeX * cos(vars->rotSpeed) - vars->planeY * sin(vars->rotSpeed);
-      vars->planeY = oldplaneX * sin(vars->rotSpeed) + vars->planeY * cos(vars->rotSpeed);
-    }
+	//move forward if no wall in front of you
+	if(keycode == 119)
+	{
+	  if(worldMap[(int)(vars->posX + vars->dirX * vars->moveSpeed)][(int)(vars->posY)] == 0) vars->posX += vars->dirX * vars->moveSpeed;
+	  if(worldMap[(int)(vars->posX)][(int)(vars->posY + vars->dirY * vars->moveSpeed)] == 0) vars->posY += vars->dirY * vars->moveSpeed;
+	}
+	//move backwards if no wall behind you
+	if(keycode == 115)
+	{
+	  if(worldMap[(int)(vars->posX - vars->dirX * vars->moveSpeed)][(int)(vars->posY)] == 0) vars->posX -= vars->dirX * vars->moveSpeed;
+	  if(worldMap[(int)(vars->posX)][(int)(vars->posY - vars->dirY * vars->moveSpeed)] == 0) vars->posY -= vars->dirY * vars->moveSpeed;
+	}
+	//rotate to the right
+	if(keycode == 100)
+	{
+		//both camera direction and camera plane must be rotated
+		double olddirX = vars->dirX;
+		vars->dirX = vars->dirX * cos(-vars->rotSpeed) - vars->dirY * sin(-vars->rotSpeed);
+		vars->dirY = olddirX * sin(-vars->rotSpeed) + vars->dirY * cos(-vars->rotSpeed);
+		double oldplaneX = vars->planeX;
+		vars->planeX = vars->planeX * cos(-vars->rotSpeed) - vars->planeY * sin(-vars->rotSpeed);
+		vars->planeY = oldplaneX * sin(-vars->rotSpeed) + vars->planeY * cos(-vars->rotSpeed);
+	}
+	//rotate to the left
+	if(keycode == 97)
+	{
+		//both camera direction and camera plane must be rotated
+		double olddirX = vars->dirX;
+		vars->dirX = vars->dirX * cos(vars->rotSpeed) - vars->dirY * sin(vars->rotSpeed);
+		vars->dirY = olddirX * sin(vars->rotSpeed) + vars->dirY * cos(vars->rotSpeed);
+		double oldplaneX = vars->planeX;
+		vars->planeX = vars->planeX * cos(vars->rotSpeed) - vars->planeY * sin(vars->rotSpeed);
+		vars->planeY = oldplaneX * sin(vars->rotSpeed) + vars->planeY * cos(vars->rotSpeed);
+	}
 	return (0);
 }
 
@@ -171,136 +173,177 @@ int raycasting(t_vars *vars)
 
 	// clock_t begin = clock();
 	
-    for(int x = 0; x < screenWidth; x++)
-    {
-      //calculate ray position and direction
-      double cameraX = 2 * x / (double)screenWidth - 1; //x-coordinate in camera space
-      double raydirX = vars->dirX + vars->planeX * cameraX;
-      double raydirY = vars->dirY + vars->planeY * cameraX;
-      //which box of the map we're in
-      int mapX = (int)(vars->posX);
-      int mapY = (int)(vars->posY);
+	for(int x = 0; x < screenWidth; x++)
+	{
+		//calculate ray position and direction
+		double cameraX = 2 * x / (double)screenWidth - 1; //x-coordinate in camera space
+		double raydirX = vars->dirX + vars->planeX * cameraX;
+		double raydirY = vars->dirY + vars->planeY * cameraX;
+		//which box of the map we're in
+		int mapX = (int)(vars->posX);
+		int mapY = (int)(vars->posY);
 
-      //length of ray from current position to next x or y-side
-      double sideDistX;
-      double sideDistY;
+		//length of ray from current position to next x or y-side
+		double sideDistX;
+		double sideDistY;
 
-      //length of ray from one x or y-side to next x or y-side
-      //these are derived as:
-      //deltaDistX = sqrt(1 + (rayvars.dirY * rayvars.dirY) / (rayvars.dirX * rayvars.dirX))
-      //deltaDistY = sqrt(1 + (rayvars.dirX * rayvars.dirX) / (rayvars.dirY * rayvars.dirY))
-      //which can be simplified to abs(|rayDir| / rayvars.dirX) and abs(|rayDir| / rayvars.dirY)
-      //where |rayDir| is the length of the vector (rayvars.dirX, rayvars.dirY). Its length,
-      //unlike (vars->dirX, vars->dirY) is not 1, however this does not matter, only the
-      //ratio between deltaDistX and deltaDistY matters, due to the way the DDA
-      //stepping further below works. So the values can be computed as below.
-      // Division through zero is prevented, even though technically that's not
-      // needed in C++ with IEEE 754 floating point values.
-      double deltaDistX = (raydirX == 0) ? 1e30 : fabs(1 / raydirX);
-      double deltaDistY = (raydirY == 0) ? 1e30 : fabs(1 / raydirY);
+		//length of ray from one x or y-side to next x or y-side
+		//these are derived as:
+		//deltaDistX = sqrt(1 + (rayvars.dirY * rayvars.dirY) / (rayvars.dirX * rayvars.dirX))
+		//deltaDistY = sqrt(1 + (rayvars.dirX * rayvars.dirX) / (rayvars.dirY * rayvars.dirY))
+		//which can be simplified to abs(|rayDir| / rayvars.dirX) and abs(|rayDir| / rayvars.dirY)
+		//where |rayDir| is the length of the vector (rayvars.dirX, rayvars.dirY). Its length,
+		//unlike (vars->dirX, vars->dirY) is not 1, however this does not matter, only the
+		//ratio between deltaDistX and deltaDistY matters, due to the way the DDA
+		//stepping further below works. So the values can be computed as below.
+		// Division through zero is prevented, even though technically that's not
+		// needed in C++ with IEEE 754 floating point values.
+		double deltaDistX = (raydirX == 0) ? 1e30 : fabs(1 / raydirX);
+		double deltaDistY = (raydirY == 0) ? 1e30 : fabs(1 / raydirY);
 
-      double perpWallDist;
+		double perpWallDist;
 
-      //what direction to step in x or y-direction (either +1 or -1)
-      int stepX;
-      int stepY;
+		//what direction to step in x or y-direction (either +1 or -1)
+		int stepX;
+		int stepY;
 
-      int hit = 0; //was there a wall hit?
-      int side; //was a NS or a EW wall hit?
-      //calculate step and initial sideDist
-      if(raydirX < 0)
-      {
-        stepX = -1;
-        sideDistX = (vars->posX - mapX) * deltaDistX;
-      }
-      else
-      {
-        stepX = 1;
-        sideDistX = (mapX + 1.0 - vars->posX) * deltaDistX;
-      }
-      if(raydirY < 0)
-      {
-        stepY = -1;
-        sideDistY = (vars->posY - mapY) * deltaDistY;
-      }
-      else
-      {
-        stepY = 1;
-        sideDistY = (mapY + 1.0 - vars->posY) * deltaDistY;
-      }
-      //perform DDA
-      while(hit == 0)
-      {
-        //jump to next map square, either in x-direction, or in y-direction
-        if(sideDistX < sideDistY)
-        {
-          sideDistX += deltaDistX;
-          mapX += stepX;
-          side = 0;
-        }
-        else
-        {
-          sideDistY += deltaDistY;
-          mapY += stepY;
-          side = 1;
-        }
-        //Check if ray has hit a wall
-        if(worldMap[mapX][mapY] > 0) hit = 1;
-      }
-      //Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
-      //hit to the camera plane. Euclidean to center camera point would give fisheye effect!
-      //This can be computed as (mapX - posX + (1 - stepX) / 2) / raydirX for side == 0, or same formula with Y
-      //for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
-      //because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
-      //steps, but we subtract deltaDist once because one step more into the wall was taken above.
-      if(side == 0) perpWallDist = (sideDistX - deltaDistX);
-      else          perpWallDist = (sideDistY - deltaDistY);
+		int hit = 0; //was there a wall hit?
+		int side; //was a NS or a EW wall hit?
+		//calculate step and initial sideDist
+		if(raydirX < 0)
+		{
+		stepX = -1;
+		sideDistX = (vars->posX - mapX) * deltaDistX;
+		}
+		else
+		{
+		stepX = 1;
+		sideDistX = (mapX + 1.0 - vars->posX) * deltaDistX;
+		}
+		if(raydirY < 0)
+		{
+		stepY = -1;
+		sideDistY = (vars->posY - mapY) * deltaDistY;
+		}
+		else
+		{
+		stepY = 1;
+		sideDistY = (mapY + 1.0 - vars->posY) * deltaDistY;
+		}
+		//perform DDA
+		while(hit == 0)
+		{
+		//jump to next map square, either in x-direction, or in y-direction
+		if(sideDistX < sideDistY)
+		{
+			sideDistX += deltaDistX;
+			mapX += stepX;
+			side = 0;
+		}
+		else
+		{
+			sideDistY += deltaDistY;
+			mapY += stepY;
+			side = 1;
+		}
+		//Check if ray has hit a wall
+		if(worldMap[mapX][mapY] > 0) hit = 1;
+		}
+		//Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
+		//hit to the camera plane. Euclidean to center camera point would give fisheye effect!
+		//This can be computed as (mapX - posX + (1 - stepX) / 2) / raydirX for side == 0, or same formula with Y
+		//for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
+		//because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
+		//steps, but we subtract deltaDist once because one step more into the wall was taken above.
+		if(side == 0) perpWallDist = (sideDistX - deltaDistX);
+		else          perpWallDist = (sideDistY - deltaDistY);
 
-      //Calculate height of line to draw on screen
-      int lineHeight = (int)(screenHeight / perpWallDist);
+		//Calculate height of line to draw on screen
+		int lineHeight = (int)(screenHeight / perpWallDist);
 
-      //calculate lowest and highest pixel to fill in current stripe
-      int drawStart = -lineHeight / 2 + screenHeight / 2;
-      if(drawStart < 0) drawStart = 0;
-      int drawEnd = lineHeight / 2 + screenHeight / 2;
-      if(drawEnd >= screenHeight) drawEnd = screenHeight - 1;
+		//calculate lowest and highest pixel to fill in current stripe
+		int drawStart = -lineHeight / 2 + screenHeight / 2;
+		if(drawStart < 0) drawStart = 0;
+		int drawEnd = lineHeight / 2 + screenHeight / 2;
+		if(drawEnd >= screenHeight) drawEnd = screenHeight - 1;
 
-      //choose wall color
-      int color;
-      switch(worldMap[mapX][mapY])
-      {
-        case 1:  color = 0x00FF0000;    break; //red
-        case 2:  color = 0x0000FF00;  break; //green
-        case 3:  color = 0x000000FF;   break; //blue
-        case 4:  color = 0x00F7F8F6;  break; //white
-        default: color = 0x00FFBB00; break; //yellow
-      }
+		//texturing calculations
+		int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 
-      //give x and y sides different brightness
-      if(side == 1) {color = color / 2;}
+		//calculate value of wallX
+		double wallX; //where exactly the wall was hit
+		if (side == 0) wallX = vars->posY + perpWallDist * raydirY;
+		else           wallX = vars->posX + perpWallDist * raydirX;
+		wallX -= floor((wallX)); //substrat integer value from it (only keep decimal value)
 
-      //draw the pixels of the stripe as a vertical line
-	  draw_line(vars, x, 0, x, drawStart, vars->ceiling_color); //draw ceiling line
-	  draw_line(vars, x, drawStart, x, drawEnd, color);
-	  draw_line(vars, x, drawEnd, x, screenHeight, vars->floor_color); //draw floor line
-    }
+		//x coordinate on the texture
+		int texX = (int)(wallX * (double)texWidth);
+		if(side == 0 && raydirX > 0) texX = texWidth - texX - 1;
+		if(side == 1 && raydirY < 0) texX = texWidth - texX - 1;
+
+		// How much to increase the texture coordinate per screen pixel
+		double step = 1.0 * texHeight / lineHeight;
+		// Starting texture coordinate
+		double texPos = (drawStart - screenHeight / 2 + lineHeight / 2) * step;
+		for(int y = drawStart; y<drawEnd; y++)
+		{
+			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+			int texY = (int)texPos & (texHeight - 1);
+			texPos += step;
+			int color = vars->texture[texNum][texHeight * texY + texX];
+			//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+			if(side == 1) color = (color >> 1) & 8355711;
+				// buffer[y][x] = color;
+				my_mlx_pixel_put(vars, x, y, color);
+		}
+
+		//draw the pixels of the stripe as a vertical line
+		draw_line(vars, x, 0, x, drawStart, vars->ceiling_color); //draw ceiling line
+		// draw_line(vars, x, drawStart, x, drawEnd, color);
+		draw_line(vars, x, drawEnd, x, screenHeight, vars->floor_color); //draw floor line
+	}
 
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img1.img, 0, 0);
 
-    //timing for input and FPS counter
+	//timing for input and FPS counter
 	// clock_t end = clock();
-    // double frameTime = (end - begin) / 1000.0; //frameTime is the time this frame has taken, in seconds
-    // printf("%f\n", 1.0 / frameTime); //FPS counter
-    // redraw();
-    // cls();
+	// double frameTime = (end - begin) / 1000.0; //frameTime is the time this frame has taken, in seconds
+	// printf("%f\n", 1.0 / frameTime); //FPS counter
+	// redraw();
+	// cls();
 
-    //speed modifiers
-    // vars->moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-    // vars->rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+	//speed modifiers
+	// vars->moveSpeed = frameTime * 5.0; //the constant value is in squares/second
+	// vars->rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+
+	swap_imgs(vars);
 	
 	return (0);
 }
 
+// /*Load the images for the game assets from the .xpm files*/
+// void	load_images(t_vars *vars)
+// {
+// 	int		img_width;
+// 	int		img_height;
+
+// 	vars->texture[0] = mlx_xpm_file_to_image(vars->mlx, "images/fox.xpm",
+// 			&img_width, &img_height);
+// 	if (vars->player_img == NULL)
+// 		close_program(vars);
+// 	vars->ground_img = mlx_xpm_file_to_image(vars->mlx, "images/grass.xpm",
+// 			&img_width, &img_height);
+// 	if (vars->ground_img == NULL)
+// 		close_program(vars);
+// 	vars->wall_img = mlx_xpm_file_to_image(vars->mlx, "images/tree.xpm",
+// 			&img_width, &img_height);
+// 	if (vars->wall_img == NULL)
+// 		close_program(vars);
+// 	vars->collectible_img = mlx_xpm_file_to_image(vars->mlx,
+// 			"images/chicken.xpm", &img_width, &img_height);
+// 	if (vars->collectible_img == NULL)
+// 		close_program(vars);
+// }
 
 int	main(int argc, char **argv)
 {
@@ -345,11 +388,35 @@ int	main(int argc, char **argv)
 	vars.planeX = 0;
 	vars.planeY = 0.66; 
 
-    vars.moveSpeed = 0.11; //the constant value is in squares/second
-    vars.rotSpeed = 0.11; //the constant value is in radians/second
+	vars.moveSpeed = 0.11; //the constant value is in squares/second
+	vars.rotSpeed = 0.11; //the constant value is in radians/second
 
 	vars.ceiling_color = 0x00D1FBFF;
 	vars.floor_color = 0x00A06528;
+
+	// Uint32 buffer[screenHeight][screenWidth]; // y-coordinate first because it works per scanline
+	int *texture[8];
+	for(int i = 0; i < 8; i++) 
+		texture[i] = malloc(sizeof(int) * (texWidth * texHeight)); //PROTECT AND FREE
+
+	//generate some textures
+	for(int x = 0; x < texWidth; x++)
+	for(int y = 0; y < texHeight; y++)
+	{
+		int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
+		//int xcolor = x * 256 / texWidth;
+		int ycolor = y * 256 / texHeight;
+		int xycolor = y * 128 / texHeight + x * 128 / texWidth;
+		texture[0][texWidth * y + x] = 65536 * 254 * (x != y && x != texWidth - y); //flat red texture with black cross
+		texture[1][texWidth * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
+		texture[2][texWidth * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
+		texture[3][texWidth * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
+		texture[4][texWidth * y + x] = 256 * xorcolor; //xor green
+		texture[5][texWidth * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
+		texture[6][texWidth * y + x] = 65536 * ycolor; //red gradient
+		texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
+	}
+	vars.texture = texture;
 	
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);

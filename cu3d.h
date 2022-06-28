@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/27 18:51:52 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:52:34 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_vars {
 	t_data img2;
 	int ceiling_color;
 	int floor_color;
+	int **texture;
 }	t_vars;
 
 #endif
