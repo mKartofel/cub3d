@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/28 15:53:21 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/28 16:40:59 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,21 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+int	get_pixel_color(t_data *data, int x, int y)
+{
+	char	*color;
+
+	color = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	return *(unsigned int*)color;
+}
+
 void draw_line(t_vars *vars, int beginX, int beginY, int endX, int endY, int color)
 {
-	double deltaX = endX - beginX; // 10
-	double deltaY = endY - beginY; // 0
+	double deltaX = endX - beginX; 
+	double deltaY = endY - beginY; 
 	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	//  pixels = sqrt((10 * 10) + (0 * 0)) = sqrt(100) = 10
-	deltaX /= pixels; // 1
-	deltaY /= pixels; // 0
+	deltaX /= pixels;
+	deltaY /= pixels;
 	double pixelX = beginX;
 	double pixelY = beginY;
 	while (pixels)
@@ -290,7 +297,8 @@ int raycasting(t_vars *vars)
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 			int texY = (int)texPos & (texHeight - 1);
 			texPos += step;
-			int color = vars->texture[texNum][texHeight * texY + texX];
+			// int color = vars->texture[texNum].img[texHeight * texY + texX];
+			int color = get_pixel_color(&vars->texture[texNum], texX, texY);
 			//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 			if(side == 1) color = (color >> 1) & 8355711;
 				// buffer[y][x] = color;
@@ -321,29 +329,37 @@ int raycasting(t_vars *vars)
 	return (0);
 }
 
-// /*Load the images for the game assets from the .xpm files*/
-// void	load_images(t_vars *vars)
-// {
-// 	int		img_width;
-// 	int		img_height;
+/*Load the images for the game assets from the .xpm files*/
+void	load_images(t_vars *vars)
+{
+	int		img_width;
+	int		img_height;
 
-// 	vars->texture[0] = mlx_xpm_file_to_image(vars->mlx, "images/fox.xpm",
-// 			&img_width, &img_height);
-// 	if (vars->player_img == NULL)
-// 		close_program(vars);
-// 	vars->ground_img = mlx_xpm_file_to_image(vars->mlx, "images/grass.xpm",
-// 			&img_width, &img_height);
-// 	if (vars->ground_img == NULL)
-// 		close_program(vars);
-// 	vars->wall_img = mlx_xpm_file_to_image(vars->mlx, "images/tree.xpm",
-// 			&img_width, &img_height);
-// 	if (vars->wall_img == NULL)
-// 		close_program(vars);
-// 	vars->collectible_img = mlx_xpm_file_to_image(vars->mlx,
-// 			"images/chicken.xpm", &img_width, &img_height);
-// 	if (vars->collectible_img == NULL)
-// 		close_program(vars);
-// }
+	//PROTECT ALL
+	vars->texture[0].img = mlx_xpm_file_to_image(vars->mlx, "pics/eagle.xpm", &img_width, &img_height);
+	vars->texture[0].addr = mlx_get_data_addr(vars->texture[0].img, &vars->texture[0].bits_per_pixel, &vars->texture[0].line_length, &vars->texture[0].endian);
+
+	vars->texture[1].img = mlx_xpm_file_to_image(vars->mlx, "pics/redbrick.xpm", &img_width, &img_height);
+	vars->texture[1].addr = mlx_get_data_addr(vars->texture[1].img, &vars->texture[1].bits_per_pixel, &vars->texture[1].line_length, &vars->texture[1].endian);
+
+	vars->texture[2].img = mlx_xpm_file_to_image(vars->mlx, "pics/purplestone.xpm", &img_width, &img_height);
+	vars->texture[2].addr = mlx_get_data_addr(vars->texture[2].img, &vars->texture[2].bits_per_pixel, &vars->texture[2].line_length, &vars->texture[2].endian);
+
+	vars->texture[3].img = mlx_xpm_file_to_image(vars->mlx, "pics/greystone.xpm", &img_width, &img_height);
+	vars->texture[3].addr = mlx_get_data_addr(vars->texture[3].img, &vars->texture[3].bits_per_pixel, &vars->texture[3].line_length, &vars->texture[3].endian);
+
+	vars->texture[4].img = mlx_xpm_file_to_image(vars->mlx, "pics/bluestone.xpm", &img_width, &img_height);
+	vars->texture[4].addr = mlx_get_data_addr(vars->texture[4].img, &vars->texture[4].bits_per_pixel, &vars->texture[4].line_length, &vars->texture[4].endian);
+
+	vars->texture[5].img = mlx_xpm_file_to_image(vars->mlx, "pics/mossy.xpm", &img_width, &img_height);
+	vars->texture[5].addr = mlx_get_data_addr(vars->texture[5].img, &vars->texture[5].bits_per_pixel, &vars->texture[5].line_length, &vars->texture[5].endian);
+
+	vars->texture[6].img = mlx_xpm_file_to_image(vars->mlx, "pics/wood.xpm", &img_width, &img_height);
+	vars->texture[6].addr = mlx_get_data_addr(vars->texture[6].img, &vars->texture[6].bits_per_pixel, &vars->texture[6].line_length, &vars->texture[6].endian);
+
+	vars->texture[7].img = mlx_xpm_file_to_image(vars->mlx, "pics/colorstone.xpm", &img_width, &img_height);
+	vars->texture[7].addr = mlx_get_data_addr(vars->texture[7].img, &vars->texture[7].bits_per_pixel, &vars->texture[7].line_length, &vars->texture[7].endian);
+}
 
 int	main(int argc, char **argv)
 {
@@ -394,29 +410,30 @@ int	main(int argc, char **argv)
 	vars.ceiling_color = 0x00D1FBFF;
 	vars.floor_color = 0x00A06528;
 
-	// Uint32 buffer[screenHeight][screenWidth]; // y-coordinate first because it works per scanline
-	int *texture[8];
-	for(int i = 0; i < 8; i++) 
-		texture[i] = malloc(sizeof(int) * (texWidth * texHeight)); //PROTECT AND FREE
+	load_images(&vars);
+	// // Uint32 buffer[screenHeight][screenWidth]; // y-coordinate first because it works per scanline
+	// t_data *texture[8];
+	// for(int i = 0; i < 8; i++) 
+	// 	texture[i] = malloc(sizeof(int) * (texWidth * texHeight)); //PROTECT AND FREE
 
-	//generate some textures
-	for(int x = 0; x < texWidth; x++)
-	for(int y = 0; y < texHeight; y++)
-	{
-		int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
-		//int xcolor = x * 256 / texWidth;
-		int ycolor = y * 256 / texHeight;
-		int xycolor = y * 128 / texHeight + x * 128 / texWidth;
-		texture[0][texWidth * y + x] = 65536 * 254 * (x != y && x != texWidth - y); //flat red texture with black cross
-		texture[1][texWidth * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
-		texture[2][texWidth * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
-		texture[3][texWidth * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
-		texture[4][texWidth * y + x] = 256 * xorcolor; //xor green
-		texture[5][texWidth * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
-		texture[6][texWidth * y + x] = 65536 * ycolor; //red gradient
-		texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
-	}
-	vars.texture = texture;
+	// //generate some textures
+	// for(int x = 0; x < texWidth; x++)
+	// for(int y = 0; y < texHeight; y++)
+	// {
+	// 	int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
+	// 	//int xcolor = x * 256 / texWidth;
+	// 	int ycolor = y * 256 / texHeight;
+	// 	int xycolor = y * 128 / texHeight + x * 128 / texWidth;
+	// 	texture[0][texWidth * y + x] = 65536 * 254 * (x != y && x != texWidth - y); //flat red texture with black cross
+	// 	texture[1][texWidth * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
+	// 	texture[2][texWidth * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
+	// 	texture[3][texWidth * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
+	// 	texture[4][texWidth * y + x] = 256 * xorcolor; //xor green
+	// 	texture[5][texWidth * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
+	// 	texture[6][texWidth * y + x] = 65536 * ycolor; //red gradient
+	// 	texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
+	// }
+	// vars.texture = texture;
 	
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);
