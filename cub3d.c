@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/29 16:41:29 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:44:20 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,7 +313,8 @@ int raycasting(t_vars *vars)
 		if(drawEnd >= screenHeight) drawEnd = screenHeight - 1;
 
 		//texturing calculations
-		int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+		// int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+		int texNum;
 
 		//calculate value of wallX
 		double wallX; //where exactly the wall was hit
@@ -343,7 +344,7 @@ int raycasting(t_vars *vars)
 			else if (side == 'S')
 				texNum = 4;
 			else if (side == 'E')
-				texNum = 5;
+				texNum = 1;
 			else if (side == 'W')
 				texNum = 6;	
 				
