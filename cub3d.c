@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/29 12:02:48 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:57:19 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,6 +393,46 @@ void	load_images(t_vars *vars)
 	vars->texture[7].addr = mlx_get_data_addr(vars->texture[7].img, &vars->texture[7].bits_per_pixel, &vars->texture[7].line_length, &vars->texture[7].endian);
 }
 
+void set_direction(t_vars *vars, char dir)
+{
+	if (dir == 'N')
+	{
+		//initial direction vector
+		vars->dirX = -1;
+		vars->dirY = 0; 
+		//the 2d raycaster version of camera plane
+		vars->planeX = 0;
+		vars->planeY = 0.66; 
+	}
+	else if (dir == 'S')
+	{
+		//initial direction vector
+		vars->dirX = 1;
+		vars->dirY = 0; 
+		//the 2d raycaster version of camera plane
+		vars->planeX = 0;
+		vars->planeY = -0.66; 
+	}
+	else if (dir == 'E')
+	{
+		//initial direction vector
+		vars->dirX = 0;
+		vars->dirY = 1; 
+		//the 2d raycaster version of camera plane
+		vars->planeX = 0.66;
+		vars->planeY = 0; 
+	}
+	else if (dir == 'W')
+	{
+		//initial direction vector
+		vars->dirX = 0;
+		vars->dirY = -1; 
+		//the 2d raycaster version of camera plane
+		vars->planeX = -0.66;
+		vars->planeY = 0; 
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
@@ -428,14 +468,10 @@ int	main(int argc, char **argv)
 	
 	//x and y start position
 	vars.posX = 2;
-	vars.posY = 2;  
-	//initial direction vector
-	vars.dirX = -1;
-	vars.dirY = 0; 
-	//the 2d raycaster version of camera plane
-	vars.planeX = 0;
-	vars.planeY = 0.66; 
+	vars.posY = 4;  
 
+	set_direction(&vars, 'E');
+	
 	vars.moveSpeed = 0.11; //the constant value is in squares/second
 	vars.rotSpeed = 0.11; //the constant value is in radians/second
 
