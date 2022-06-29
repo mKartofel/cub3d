@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/29 15:57:19 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:41:29 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ int raycasting(t_vars *vars)
 		int stepY;
 
 		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
+		char side; //was a NS or a EW wall hit?
 		//calculate step and initial sideDist
 		if(raydirX < 0)
 		{
@@ -277,13 +277,19 @@ int raycasting(t_vars *vars)
 		{
 			sideDistX += deltaDistX;
 			mapX += stepX;
-			side = 0;
+			if (stepX == 1)
+				side = 'N';
+			else if (stepX == -1)
+				side = 'S';
 		}
 		else
 		{
 			sideDistY += deltaDistY;
 			mapY += stepY;
-			side = 1;
+			if (stepY == -1)
+				side = 'E';
+			else if (stepY == 1)
+				side = 'W';
 		}
 		//Check if ray has hit a wall
 		if(worldMap[mapX][mapY] > 0) hit = 1;
@@ -294,7 +300,7 @@ int raycasting(t_vars *vars)
 		//for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
 		//because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
 		//steps, but we subtract deltaDist once because one step more into the wall was taken above.
-		if(side == 0) perpWallDist = (sideDistX - deltaDistX);
+		if(side == 'N' || side == 'S') perpWallDist = (sideDistX - deltaDistX);
 		else          perpWallDist = (sideDistY - deltaDistY);
 
 		//Calculate height of line to draw on screen
@@ -311,14 +317,16 @@ int raycasting(t_vars *vars)
 
 		//calculate value of wallX
 		double wallX; //where exactly the wall was hit
-		if (side == 0) wallX = vars->posY + perpWallDist * raydirY;
+		if (side == 'N' || side == 'S') wallX = vars->posY + perpWallDist * raydirY;
 		else           wallX = vars->posX + perpWallDist * raydirX;
 		wallX -= floor((wallX)); //substrat integer value from it (only keep decimal value)
 
 		//x coordinate on the texture
 		int texX = (int)(wallX * (double)texWidth);
-		if(side == 0 && raydirX > 0) texX = texWidth - texX - 1;
-		if(side == 1 && raydirY < 0) texX = texWidth - texX - 1;
+		if((side == 'N' || side == 'S') && raydirX > 0)
+			texX = texWidth - texX - 1;
+		if((side == 'E' || side == 'W') && raydirY < 0)
+			texX = texWidth - texX - 1;
 
 		// How much to increase the texture coordinate per screen pixel
 		double step = 1.0 * texHeight / lineHeight;
@@ -329,12 +337,22 @@ int raycasting(t_vars *vars)
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 			int texY = (int)texPos & (texHeight - 1);
 			texPos += step;
+			
+			if (side == 'N')
+				texNum = 3;
+			else if (side == 'S')
+				texNum = 4;
+			else if (side == 'E')
+				texNum = 5;
+			else if (side == 'W')
+				texNum = 6;	
+				
 			// int color = vars->texture[texNum].img[texHeight * texY + texX];
 			int color = get_pixel_color(&vars->texture[texNum], texX, texY);
 			//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-			if(side == 1) color = (color >> 1) & 8355711;
-				// buffer[y][x] = color;
-				my_mlx_pixel_put(vars, x, y, color);
+			// if(side == 1) color = (color >> 1) & 8355711;
+			// buffer[y][x] = color;
+			my_mlx_pixel_put(vars, x, y, color);
 		}
 
 		//draw the pixels of the stripe as a vertical line
@@ -393,7 +411,7 @@ void	load_images(t_vars *vars)
 	vars->texture[7].addr = mlx_get_data_addr(vars->texture[7].img, &vars->texture[7].bits_per_pixel, &vars->texture[7].line_length, &vars->texture[7].endian);
 }
 
-void set_direction(t_vars *vars, char dir)
+void set_init_direction(t_vars *vars, char dir)
 {
 	if (dir == 'N')
 	{
@@ -470,7 +488,7 @@ int	main(int argc, char **argv)
 	vars.posX = 2;
 	vars.posY = 4;  
 
-	set_direction(&vars, 'E');
+	set_init_direction(&vars, 'E');
 	
 	vars.moveSpeed = 0.11; //the constant value is in squares/second
 	vars.rotSpeed = 0.11; //the constant value is in radians/second
