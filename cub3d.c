@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/28 16:40:59 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/29 12:02:48 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,49 @@ int	key_hook(int keycode, t_vars *vars)
 	//move forward if no wall in front of you
 	if(keycode == 119)
 	{
-	  if(worldMap[(int)(vars->posX + vars->dirX * vars->moveSpeed)][(int)(vars->posY)] == 0) vars->posX += vars->dirX * vars->moveSpeed;
-	  if(worldMap[(int)(vars->posX)][(int)(vars->posY + vars->dirY * vars->moveSpeed)] == 0) vars->posY += vars->dirY * vars->moveSpeed;
+		if(worldMap[(int)(vars->posX + vars->dirX * vars->moveSpeed)][(int)(vars->posY)] == 0) 
+			vars->posX += vars->dirX * vars->moveSpeed;
+		if(worldMap[(int)(vars->posX)][(int)(vars->posY + vars->dirY * vars->moveSpeed)] == 0) 
+			vars->posY += vars->dirY * vars->moveSpeed;
 	}
 	//move backwards if no wall behind you
 	if(keycode == 115)
 	{
-	  if(worldMap[(int)(vars->posX - vars->dirX * vars->moveSpeed)][(int)(vars->posY)] == 0) vars->posX -= vars->dirX * vars->moveSpeed;
-	  if(worldMap[(int)(vars->posX)][(int)(vars->posY - vars->dirY * vars->moveSpeed)] == 0) vars->posY -= vars->dirY * vars->moveSpeed;
+		if(worldMap[(int)(vars->posX - vars->dirX * vars->moveSpeed)][(int)(vars->posY)] == 0)
+			vars->posX -= vars->dirX * vars->moveSpeed;
+		if(worldMap[(int)(vars->posX)][(int)(vars->posY - vars->dirY * vars->moveSpeed)] == 0) 
+			vars->posY -= vars->dirY * vars->moveSpeed;
+	}
+	//move right if no wall in the way
+	if(keycode == 100)
+	{
+		double dirX = vars->dirX;
+		double olddirX = dirX;
+		double dirY = vars->dirY;
+		double angle = 90 * M_PI / 180;
+		dirX = dirX * cos(-angle) - dirY * sin(-angle);
+		dirY = olddirX * sin(-angle) + dirY * cos(-angle);
+		if(worldMap[(int)(vars->posX + dirX * vars->moveSpeed)][(int)(vars->posY)] == 0)
+			vars->posX += dirX * vars->moveSpeed;
+		if(worldMap[(int)(vars->posX)][(int)(vars->posY + dirY * vars->moveSpeed)] == 0)
+			vars->posY += dirY * vars->moveSpeed;
+	}
+	//move left if no wall in the way
+	if(keycode == 97)
+	{
+		double dirX = vars->dirX;
+		double olddirX = dirX;
+		double dirY = vars->dirY;
+		double angle = 90 * M_PI / 180;
+		dirX = dirX * cos(angle) - dirY * sin(angle);
+		dirY = olddirX * sin(angle) + dirY * cos(angle);
+		if(worldMap[(int)(vars->posX + dirX * vars->moveSpeed)][(int)(vars->posY)] == 0)
+			vars->posX += dirX * vars->moveSpeed;
+		if(worldMap[(int)(vars->posX)][(int)(vars->posY + dirY * vars->moveSpeed)] == 0)
+			vars->posY += dirY * vars->moveSpeed;
 	}
 	//rotate to the right
-	if(keycode == 100)
+	if(keycode == 65363)
 	{
 		//both camera direction and camera plane must be rotated
 		double olddirX = vars->dirX;
@@ -115,7 +147,7 @@ int	key_hook(int keycode, t_vars *vars)
 		vars->planeY = oldplaneX * sin(-vars->rotSpeed) + vars->planeY * cos(-vars->rotSpeed);
 	}
 	//rotate to the left
-	if(keycode == 97)
+	if(keycode == 65361)
 	{
 		//both camera direction and camera plane must be rotated
 		double olddirX = vars->dirX;
@@ -336,28 +368,28 @@ void	load_images(t_vars *vars)
 	int		img_height;
 
 	//PROTECT ALL
-	vars->texture[0].img = mlx_xpm_file_to_image(vars->mlx, "pics/eagle.xpm", &img_width, &img_height);
+	vars->texture[0].img = mlx_xpm_file_to_image(vars->mlx, "images/eagle.xpm", &img_width, &img_height);
 	vars->texture[0].addr = mlx_get_data_addr(vars->texture[0].img, &vars->texture[0].bits_per_pixel, &vars->texture[0].line_length, &vars->texture[0].endian);
 
-	vars->texture[1].img = mlx_xpm_file_to_image(vars->mlx, "pics/redbrick.xpm", &img_width, &img_height);
+	vars->texture[1].img = mlx_xpm_file_to_image(vars->mlx, "images/redbrick.xpm", &img_width, &img_height);
 	vars->texture[1].addr = mlx_get_data_addr(vars->texture[1].img, &vars->texture[1].bits_per_pixel, &vars->texture[1].line_length, &vars->texture[1].endian);
 
-	vars->texture[2].img = mlx_xpm_file_to_image(vars->mlx, "pics/purplestone.xpm", &img_width, &img_height);
+	vars->texture[2].img = mlx_xpm_file_to_image(vars->mlx, "images/purplestone.xpm", &img_width, &img_height);
 	vars->texture[2].addr = mlx_get_data_addr(vars->texture[2].img, &vars->texture[2].bits_per_pixel, &vars->texture[2].line_length, &vars->texture[2].endian);
 
-	vars->texture[3].img = mlx_xpm_file_to_image(vars->mlx, "pics/greystone.xpm", &img_width, &img_height);
+	vars->texture[3].img = mlx_xpm_file_to_image(vars->mlx, "images/greystone.xpm", &img_width, &img_height);
 	vars->texture[3].addr = mlx_get_data_addr(vars->texture[3].img, &vars->texture[3].bits_per_pixel, &vars->texture[3].line_length, &vars->texture[3].endian);
 
-	vars->texture[4].img = mlx_xpm_file_to_image(vars->mlx, "pics/bluestone.xpm", &img_width, &img_height);
+	vars->texture[4].img = mlx_xpm_file_to_image(vars->mlx, "images/bluestone.xpm", &img_width, &img_height);
 	vars->texture[4].addr = mlx_get_data_addr(vars->texture[4].img, &vars->texture[4].bits_per_pixel, &vars->texture[4].line_length, &vars->texture[4].endian);
 
-	vars->texture[5].img = mlx_xpm_file_to_image(vars->mlx, "pics/mossy.xpm", &img_width, &img_height);
+	vars->texture[5].img = mlx_xpm_file_to_image(vars->mlx, "images/mossy.xpm", &img_width, &img_height);
 	vars->texture[5].addr = mlx_get_data_addr(vars->texture[5].img, &vars->texture[5].bits_per_pixel, &vars->texture[5].line_length, &vars->texture[5].endian);
 
-	vars->texture[6].img = mlx_xpm_file_to_image(vars->mlx, "pics/wood.xpm", &img_width, &img_height);
+	vars->texture[6].img = mlx_xpm_file_to_image(vars->mlx, "images/wood.xpm", &img_width, &img_height);
 	vars->texture[6].addr = mlx_get_data_addr(vars->texture[6].img, &vars->texture[6].bits_per_pixel, &vars->texture[6].line_length, &vars->texture[6].endian);
 
-	vars->texture[7].img = mlx_xpm_file_to_image(vars->mlx, "pics/colorstone.xpm", &img_width, &img_height);
+	vars->texture[7].img = mlx_xpm_file_to_image(vars->mlx, "images/colorstone.xpm", &img_width, &img_height);
 	vars->texture[7].addr = mlx_get_data_addr(vars->texture[7].img, &vars->texture[7].bits_per_pixel, &vars->texture[7].line_length, &vars->texture[7].endian);
 }
 
@@ -395,8 +427,8 @@ int	main(int argc, char **argv)
 	vars.img2.addr = mlx_get_data_addr(vars.img2.img, &vars.img2.bits_per_pixel, &vars.img2.line_length, &vars.img2.endian);
 	
 	//x and y start position
-	vars.posX = 22;
-	vars.posY = 12;  
+	vars.posX = 2;
+	vars.posY = 2;  
 	//initial direction vector
 	vars.dirX = -1;
 	vars.dirY = 0; 
