@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/27 11:01:40 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/30 11:09:19 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,11 @@ LIBFT_A = ./libft/libft.a
 NAME = cub3d
 
 SRCS =	cub3d.c\
+		raycasting.c\
+		key_hook.c\
+		draw.c\
+		load_textures.c\
+		init.c\
 
 OBJS = ${SRCS:.c=.o}
 
