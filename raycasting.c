@@ -6,15 +6,18 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:12:23 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/30 10:43:37 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/30 11:40:27 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cu3d.h"
 
 int raycasting(t_vars *vars)
-{	
-	for(int x = 0; x < screenWidth; x++)
+{
+	int x;
+
+	x = 0;
+	while (x < screenWidth)
 	{
 		//calculate ray position and direction
 		double cameraX = 2 * x / (double)screenWidth - 1; //x-coordinate in camera space
@@ -53,48 +56,49 @@ int raycasting(t_vars *vars)
 		//calculate step and initial sideDist
 		if(raydirX < 0)
 		{
-		stepX = -1;
-		sideDistX = (vars->posX - mapX) * deltaDistX;
+			stepX = -1;
+			sideDistX = (vars->posX - mapX) * deltaDistX;
 		}
 		else
 		{
-		stepX = 1;
-		sideDistX = (mapX + 1.0 - vars->posX) * deltaDistX;
+			stepX = 1;
+			sideDistX = (mapX + 1.0 - vars->posX) * deltaDistX;
 		}
 		if(raydirY < 0)
 		{
-		stepY = -1;
-		sideDistY = (vars->posY - mapY) * deltaDistY;
+			stepY = -1;
+			sideDistY = (vars->posY - mapY) * deltaDistY;
 		}
 		else
 		{
-		stepY = 1;
-		sideDistY = (mapY + 1.0 - vars->posY) * deltaDistY;
+			stepY = 1;
+			sideDistY = (mapY + 1.0 - vars->posY) * deltaDistY;
 		}
 		//perform DDA
 		while(hit == 0)
 		{
-		//jump to next map square, either in x-direction, or in y-direction
-		if(sideDistX < sideDistY)
-		{
-			sideDistX += deltaDistX;
-			mapX += stepX;
-			if (stepX == 1)
-				side = 'N';
-			else if (stepX == -1)
-				side = 'S';
-		}
-		else
-		{
-			sideDistY += deltaDistY;
-			mapY += stepY;
-			if (stepY == -1)
-				side = 'E';
-			else if (stepY == 1)
-				side = 'W';
-		}
-		//Check if ray has hit a wall
-		if(worldMap[mapX][mapY] > 0) hit = 1;
+			//jump to next map square, either in x-direction, or in y-direction
+			if(sideDistX < sideDistY)
+			{
+				sideDistX += deltaDistX;
+				mapX += stepX;
+				if (stepX == 1)
+					side = 'N';
+				else if (stepX == -1)
+					side = 'S';
+			}
+			else
+			{
+				sideDistY += deltaDistY;
+				mapY += stepY;
+				if (stepY == -1)
+					side = 'E';
+				else if (stepY == 1)
+					side = 'W';
+			}
+			//Check if ray has hit a wall
+			if(worldMap[mapX][mapY] > 0)
+				hit = 1;
 		}
 		//Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
 		//hit to the camera plane. Euclidean to center camera point would give fisheye effect!
@@ -114,9 +118,16 @@ int raycasting(t_vars *vars)
 		int drawEnd = lineHeight / 2 + screenHeight / 2;
 		if(drawEnd >= screenHeight) drawEnd = screenHeight - 1;
 
-		//texturing calculations
-		// int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+		//select the correct texture to use
 		int texNum;
+		if (side == 'N')
+			texNum = 0;
+		else if (side == 'S')
+			texNum = 1;
+		else if (side == 'E')
+			texNum = 2;
+		else if (side == 'W')
+			texNum = 3;	
 
 		//calculate value of wallX
 		double wallX; //where exactly the wall was hit
@@ -140,29 +151,15 @@ int raycasting(t_vars *vars)
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 			int texY = (int)texPos & (texHeight - 1);
 			texPos += step;
-			
-			if (side == 'N')
-				texNum = 0;
-			else if (side == 'S')
-				texNum = 1;
-			else if (side == 'E')
-				texNum = 2;
-			else if (side == 'W')
-				texNum = 3;	
 				
 			int color = get_pixel_color(&vars->texture[texNum], texX, texY);
 			custom_mlx_pixel_put(vars, x, y, color);
 		}
-
-		//draw the pixels of the stripe as a vertical line
 		draw_line(vars, x, 0, x, drawStart, vars->ceiling_color); //draw ceiling line
-		// draw_line(vars, x, drawStart, x, drawEnd, color);
 		draw_line(vars, x, drawEnd, x, screenHeight, vars->floor_color); //draw floor line
+		x++;
 	}
-
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img1.img, 0, 0);
-
 	swap_imgs(vars);
-	
 	return (0);
 }

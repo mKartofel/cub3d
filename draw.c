@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:55:55 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/30 11:15:04 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/30 11:29:49 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ void draw_line(t_vars *vars, int beginX, int beginY, int endX, int endY, int col
 	double deltaY;
 	double pixelX;
 	double pixelY;
-	int pixels;
+	int pixels_to_draw;
 	
 	deltaX = endX - beginX; 
 	deltaY = endY - beginY; 
-	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	deltaX /= pixels;
-	deltaY /= pixels;
+	pixels_to_draw = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	deltaX /= pixels_to_draw;
+	deltaY /= pixels_to_draw;
 	pixelX = beginX;
 	pixelY = beginY;
-	while (pixels)
+	while (pixels_to_draw)
 	{
 		custom_mlx_pixel_put(vars, pixelX, pixelY, color);
 		pixelX += deltaX;
 		pixelY += deltaY;
-		--pixels;
+		pixels_to_draw--;
 	}
 }
