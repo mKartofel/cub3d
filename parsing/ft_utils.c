@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 03:38:31 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/21 07:08:33 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/21 07:21:30 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_data_pars(t_pars *data)
 	free(data);
 }
 
-int			ft_error(char *str)
+int	ft_error(char *str)
 {
 	if (!str)
 		return (0);
@@ -49,9 +49,9 @@ int			ft_error(char *str)
 	return (ERROR);
 }
 
-int			is_wspace(char c)
+int	is_wspace(char c)
 {
-	if ((c >= 9 && c <= 13) || c ==32)
+	if ((c >= 9 && c <= 13) || c == 32)
 		return (1);
 	return (0);
 }

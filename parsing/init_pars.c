@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 07:04:10 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/21 07:12:09 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/21 07:22:24 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_data_pars(t_pars *data)
 	data->s_tpath = NULL;
 	data->w_tpath = NULL;
 	data->e_tpath = NULL;
-	return ; 
+	return ;
 }
 
 void	init_obj_check(t_check_data *obj, int fd)
