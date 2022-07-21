@@ -1,0 +1,7 @@
+SO	./ft_split_wspace.c
+NO	./ft_split_wspace.c
+EA	./ft_split_wspace.c
+WE	./init_pars.c
+
+F	255, 255, 255
+C	255, 0, 10
