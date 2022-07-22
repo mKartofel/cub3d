@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:08:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/30 11:09:08 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/22 18:48:02 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ void	init_vars_struct(t_vars *vars)
 	vars->posY = 4;
 	vars->moveSpeed = 0.1; //squares/second
 	vars->rotSpeed = 0.06; //radians/second
+	
+	vars->move_forward = 0;
+	vars->move_backward = 0;
+	vars->move_left = 0;
+	vars->move_right = 0;
+	vars->rotate_left = 0;
+	vars->rotate_right = 0;
 }
 
 void init_mlx_and_img_buffers(t_vars *vars)

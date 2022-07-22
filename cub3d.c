@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/30 11:09:00 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/22 18:59:37 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	free_vars(t_vars *vars)
 
 int	close_program(t_vars *vars, int ret)
 {
-	mlx_loop_end(vars->mlx);
+	if (vars->mlx)
+		mlx_loop_end(vars->mlx);
 	free_vars(vars);
 	exit(ret);
 }
@@ -117,8 +118,9 @@ int	main(int argc, char **argv)
 
 	load_textures(&vars);
 
-	mlx_key_hook(vars.win, key_hook, &vars);
-	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);
+	// mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_hook(vars.win, 2, 1L << 0, key_pressed_hook, &vars);
+	mlx_hook(vars.win, 2, 1L << 1, key_released_hook, &vars);
 	mlx_hook(vars.win, 33, 1L << 5, close_red_cross, &vars);
 	mlx_loop_hook(vars.mlx, raycasting, &vars);
 	mlx_loop(vars.mlx);
