@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/22 18:59:37 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:07:36 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	main(int argc, char **argv)
 
 	// mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 2, 1L << 0, key_pressed_hook, &vars);
-	mlx_hook(vars.win, 2, 1L << 1, key_released_hook, &vars);
+	mlx_hook(vars.win, 3, 1L << 1, key_released_hook, &vars);
 	mlx_hook(vars.win, 33, 1L << 5, close_red_cross, &vars);
 	mlx_loop_hook(vars.mlx, raycasting, &vars);
 	mlx_loop(vars.mlx);
