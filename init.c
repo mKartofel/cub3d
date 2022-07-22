@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:08:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/22 18:48:02 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:09:56 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_vars_struct(t_vars *vars)
 	//x and y start position
 	vars->posX = 2;
 	vars->posY = 4;
-	vars->moveSpeed = 0.1; //squares/second
-	vars->rotSpeed = 0.06; //radians/second
+	vars->moveSpeed = 0.05; //squares/second
+	vars->rotSpeed = 0.03; //radians/second
 	
 	vars->move_forward = 0;
 	vars->move_backward = 0;
