@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/30 11:09:19 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/07/22 19:01:26 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS =	cub3d.c\
 		draw.c\
 		load_textures.c\
 		init.c\
+		player_movement.c\
 
 OBJS = ${SRCS:.c=.o}
 

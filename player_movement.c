@@ -6,18 +6,11 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:35:39 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/22 18:54:22 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:01:45 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cu3d.h"
-
-void player_movement(t_vars *vars)
-{
-	move_forward_backward(vars);
-	move_left_right(vars);
-	rotate_left_right(vars);
-}
 
 void move_forward_backward(t_vars *vars)
 {
@@ -103,4 +96,12 @@ void rotate_left_right(t_vars *vars)
 		vars->planeX = vars->planeX * cos(vars->rotSpeed) - vars->planeY * sin(vars->rotSpeed);
 		vars->planeY = oldplaneX * sin(vars->rotSpeed) + vars->planeY * cos(vars->rotSpeed);
 	}
+}
+
+
+void player_movement(t_vars *vars)
+{
+	move_forward_backward(vars);
+	move_left_right(vars);
+	rotate_left_right(vars);
 }
