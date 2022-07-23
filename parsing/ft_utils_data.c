@@ -1,30 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_utils_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 03:38:31 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/23 03:07:10 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/23 05:59:48 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/parsing.h"
 
-void	free_split_line(char **split_line)
+int	open_file(char *path)
+{
+	int		ret;
+	char	*buff;
+
+	buff = ft_strrchr(path, '.');
+	if (ft_strncmp(buff, ".cub", 4) != 0)
+		return (ft_error("Error\nmap format must be [[name].cub]\n"));
+	ret = open(path, O_RDONLY);
+	if (ret < 0)
+	{
+		perror(path);
+		return (ERROR);
+	}
+	else
+		return (ret);
+	return (ERROR);
+}
+
+int	free_split_line(char **split_line)
 {
 	int		i;
 
 	i = 0;
 	if (split_line == NULL)
-		return ;
+		return (STOP_COND_ERROR);
 	while (split_line[i])
 	{
 		free(split_line[i]);
 		i++;
 	}
 	free(split_line);
+	return (STOP_COND_ERROR);
 }
 
 void	free_data_pars(t_pars *data)

@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:06:29 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/23 03:17:13 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/23 06:57:05 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	set_nu(char *str)
 
 	ret = 0;
 	i = 0;
+	if (str == NULL || str[0] == '\0')
+		return (STOP_COND_ERROR);
 	while (str[i] && (str[i] >= '0' && str[i] <= '9') && str[i] != ',')
 	{
 		ret = (ret * 10) + (str[i] - 48);
@@ -67,25 +69,25 @@ int	set_pars_fc(char *line, int tab[])
 	int		i;
 	int		check;
 
-	i = 0;
+	i = -1;
 	check = -1;
 	new_split_line = set_new_split_line(line);
-	while (new_split_line[i] != NULL)
+	while (new_split_line[++i] != NULL)
 	{
 		buff = new_split_line[i];
 		if (!new_split_line[i])
 			return (STOP_COND_ERROR);
 		while (new_split_line[i][++check] != '\0')
 			if (!ft_isdigit(new_split_line[i][check]))
-			{
-				free_split_line(new_split_line);
-				return (STOP_COND_ERROR);
-			}
+				return (free_split_line(new_split_line));
 		check = -1;
 		tab[i] = set_nu(new_split_line[i]);
-		i++;
+		if (tab[i] < 0)
+			return (free_split_line(new_split_line));
 	}
 	free_split_line(new_split_line);
+	if (i != 3)
+		return (STOP_COND_ERROR);
 	return (1);
 }
 
@@ -105,13 +107,12 @@ int	set_pars_text(char **split_line, char **str)
 	}
 	if (access(split_line[1], R_OK) != 0)
 	{
-		ft_error("Error\n");
 		perror(split_line[1]);
 		return (STOP_COND_ERROR);
 	}
 	if (*str != NULL)
 		return (ft_error("Error\nFiled allready assigned\n ") + STOP_COND_ERROR);
-	*str = (char*)malloc(sizeof(char) * (ft_strlen(split_line[1]) + 1));
+	*str = (char *)malloc(sizeof(char) * (ft_strlen(split_line[1]) + 1));
 	if (str == NULL)
 		return (STOP_COND_ERROR);
 	ft_strlcpy(*str, split_line[1], ft_strlen(split_line[1]));
