@@ -6,11 +6,40 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:06:29 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/21 07:57:47 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/23 03:17:13 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/parsing.h"
+
+char	**set_new_split_line(char *line)
+{
+	char	**ret;
+	char	*buff;
+	char	*mod;
+	int		i;
+
+	i = 0;
+	ret = ft_split(line, ',');
+	if (!ret || !ret[0])
+		return (NULL);
+	buff = ret[0];
+	ret[0] = ft_strtrim(ret[0], " \n\t\n\r\v");
+	free(buff);
+	buff = ret[0];
+	mod = malloc(sizeof(char) * (ft_strlen(&ret[0][1]) + 1));
+	ft_strlcpy(mod, &ret[0][1], ft_strlen(&ret[0][1]) + 1);
+	ret[0] = mod;
+	free(buff);
+	while (ret[i] != NULL)
+	{
+		buff = ret[i];
+		ret[i] = ft_strtrim(ret[i], " \n\t\n\r\v");
+		free(buff);
+		i++;
+	}
+	return (ret);
+}
 
 static int	set_nu(char *str)
 {
@@ -24,7 +53,6 @@ static int	set_nu(char *str)
 		ret = (ret * 10) + (str[i] - 48);
 		i++;
 	}
-	printf("value: |%d|\n", ret);
 	if (ret > 255 || ret < 0)
 		return (ft_error("Error\ncolor out of range\n"));
 	if (str[i] != ',' && str[i] != '\0')
@@ -32,34 +60,36 @@ static int	set_nu(char *str)
 	return (ret);
 }
 
-int	set_pars_fc(char **split_line, int tab[])
+int	set_pars_fc(char *line, int tab[])
 {
-	int		tab_i;
-	int		arg;
-	int		buff;
-	char	**tab_buff;
+	char	**new_split_line;
+	char	*buff;
+	int		i;
+	int		check;
 
-	tab_i = 0;
-	arg = 1;
-	buff = 0;
-	while (split_line[arg])
+	i = 0;
+	check = -1;
+	new_split_line = set_new_split_line(line);
+	while (new_split_line[i] != NULL)
 	{
-		printf("value split_arg: |%s|\n", split_line[arg]);
-		tab_buff = ft_split(split_line[arg], ',');
-		if (arg == 4)
+		buff = new_split_line[i];
+		if (!new_split_line[i])
 			return (STOP_COND_ERROR);
-		buff = set_nu(split_line[arg]);
-		if (buff == ERROR)
-			return (STOP_COND_ERROR);
-		else
-			tab[tab_i] = buff;
-		arg++;
-		tab_i++;
+		while (new_split_line[i][++check] != '\0')
+			if (!ft_isdigit(new_split_line[i][check]))
+			{
+				free_split_line(new_split_line);
+				return (STOP_COND_ERROR);
+			}
+		check = -1;
+		tab[i] = set_nu(new_split_line[i]);
+		i++;
 	}
+	free_split_line(new_split_line);
 	return (1);
 }
 
-int	set_pars_card_text(char **split_line, char *str)
+int	set_pars_text(char **split_line, char **str)
 {
 	if (split_line[1] == NULL)
 		return (STOP_COND_ERROR);
@@ -79,11 +109,11 @@ int	set_pars_card_text(char **split_line, char *str)
 		perror(split_line[1]);
 		return (STOP_COND_ERROR);
 	}
-	if (str != NULL)
+	if (*str != NULL)
 		return (ft_error("Error\nFiled allready assigned\n ") + STOP_COND_ERROR);
-	str = malloc(sizeof(char) * (ft_strlen(split_line[1]) + 1));
+	*str = (char*)malloc(sizeof(char) * (ft_strlen(split_line[1]) + 1));
 	if (str == NULL)
 		return (STOP_COND_ERROR);
-	ft_strlcpy(str, split_line[1], ft_strlen(split_line[1]));
+	ft_strlcpy(*str, split_line[1], ft_strlen(split_line[1]));
 	return (1);
 }
