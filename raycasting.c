@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:12:23 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 16:57:09 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:08:33 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 int raycasting(t_vars *vars)
 {
-	int x;
-
-	x = 0;
-	while (x < SCREENWIDTH)
+	vars->x = 0;
+	while (vars->x < SCREENWIDTH)
 	{
 		//calculate ray position and direction
-		double cameraX = 2 * x / (double)SCREENWIDTH - 1; //x-coordinate in camera space
+		double cameraX = 2 * vars->x / (double)SCREENWIDTH - 1; //x-coordinate in camera space
 		double raydirx = vars->dirx + vars->planex * cameraX;
 		double raydiry = vars->diry + vars->planey * cameraX;
 		//which box of the map we're in
@@ -153,11 +151,11 @@ int raycasting(t_vars *vars)
 			texPos += step;
 				
 			int color = get_pixel_color(&vars->texture[texNum], texX, texY);
-			custom_mlx_pixel_put(vars, x, y, color);
+			custom_mlx_pixel_put(vars, vars->x, y, color);
 		}
-		draw_vertical_line(vars, x, 0, drawStart, vars->ceiling_color); //draw ceiling line
-		draw_vertical_line(vars, x, drawEnd, SCREENHEIGHT, vars->floor_color); //draw floor line
-		x++;
+		draw_vertical_line(vars, 0, drawStart, vars->ceiling_color); //draw ceiling line
+		draw_vertical_line(vars, drawEnd, SCREENHEIGHT, vars->floor_color); //draw floor line
+		vars->x++;
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img1.img, 0, 0);
 

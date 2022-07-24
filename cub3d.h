@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 16:57:31 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:09:23 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ typedef struct s_vars {
 	int		move_right;
 	int		rotate_left;
 	int		rotate_right;
+	int		x;
 }	t_vars;
 
 
 int		raycasting(t_vars *vars);
-void	draw_vertical_line(t_vars *vars, int x, int begin_y, int end_y, int color);
+void	draw_vertical_line(t_vars *vars, int begin_y, int end_y, int color);
 void	swap_imgs(t_vars *vars);
 void	custom_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 int		get_pixel_color(t_data *data, int x, int y);

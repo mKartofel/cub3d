@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:55:55 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 16:56:56 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:10:39 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,22 @@ int	get_pixel_color(t_data *data, int x, int y)
 {
 	char	*color;
 
-	color = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	return *(unsigned int*)color;
+	color = data->addr + (y * data->line_length + x
+			* (data->bits_per_pixel / 8));
+	return (*(unsigned int *)color);
 }
 
-void draw_vertical_line(t_vars *vars, int x, int begin_y, int end_y, int color)
+void	draw_vertical_line(t_vars *vars, int begin_y, int end_y, int color)
 {
-	double pixelY;
-	int pixels_to_draw;
-	
+	double	pixel_y;
+	int		pixels_to_draw;
+
 	pixels_to_draw = end_y - begin_y;
-	pixelY = begin_y;
+	pixel_y = begin_y;
 	while (pixels_to_draw)
 	{
-		custom_mlx_pixel_put(vars, x, pixelY, color);
-		pixelY += 1;
+		custom_mlx_pixel_put(vars, vars->x, pixel_y, color);
+		pixel_y++;
 		pixels_to_draw--;
 	}
 }
