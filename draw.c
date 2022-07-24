@@ -6,18 +6,19 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:55:55 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/30 11:29:49 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 16:56:56 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cu3d.h"
+#include "cub3d.h"
 
 void	custom_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = vars->img1.addr + (y * vars->img1.line_length + x * (vars->img1.bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	dst = vars->img1.addr + (y * vars->img1.line_length + x
+			* (vars->img1.bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
 int	get_pixel_color(t_data *data, int x, int y)
@@ -28,26 +29,17 @@ int	get_pixel_color(t_data *data, int x, int y)
 	return *(unsigned int*)color;
 }
 
-void draw_line(t_vars *vars, int beginX, int beginY, int endX, int endY, int color)
+void draw_vertical_line(t_vars *vars, int x, int begin_y, int end_y, int color)
 {
-	double deltaX;
-	double deltaY;
-	double pixelX;
 	double pixelY;
 	int pixels_to_draw;
 	
-	deltaX = endX - beginX; 
-	deltaY = endY - beginY; 
-	pixels_to_draw = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	deltaX /= pixels_to_draw;
-	deltaY /= pixels_to_draw;
-	pixelX = beginX;
-	pixelY = beginY;
+	pixels_to_draw = end_y - begin_y;
+	pixelY = begin_y;
 	while (pixels_to_draw)
 	{
-		custom_mlx_pixel_put(vars, pixelX, pixelY, color);
-		pixelX += deltaX;
-		pixelY += deltaY;
+		custom_mlx_pixel_put(vars, x, pixelY, color);
+		pixelY += 1;
 		pixels_to_draw--;
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/22 19:07:36 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 16:43:36 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cu3d.h"
+#include "cub3d.h"
 
-int worldMap[mapWidth][mapHeight]=
+int worldmap[MAPWIDTH][MAPHEIGHT]=
 {
   {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
   {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
@@ -49,7 +49,7 @@ void	free_vars(t_vars *vars)
 	if (vars->img2.img != NULL)
 		mlx_destroy_image(vars->mlx, vars->img2.img);
 	i = 0;
-	while (i < nbTextures)
+	while (i < NBTEXTURES)
 	{
 		if (vars->texture[i].img)
 			mlx_destroy_image(vars->mlx, vars->texture[i].img);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cu3d.h                                             :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/22 18:58:05 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 16:57:31 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 # include <math.h>
 # include <stdio.h>
 
-#define screenWidth 1080 //640
-#define screenHeight 810 //480
-#define texWidth 64
-#define texHeight 64
-#define mapWidth 24
-#define mapHeight 24
-#define nbTextures 4
+# define SCREENWIDTH 1080
+# define SCREENHEIGHT 810
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
+# define MAPWIDTH 24
+# define MAPHEIGHT 24
+# define NBTEXTURES 4
 
-extern int worldMap[mapWidth][mapHeight]; //enlever quand on a la vraie map
+extern int worldmap[MAPWIDTH][MAPHEIGHT]; //enlever quand on a la vraie map !
 
 typedef struct s_data {
 	void	*img;
@@ -38,31 +38,31 @@ typedef struct s_data {
 typedef struct s_vars {
 	void	*mlx;
 	void	*win;
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	double moveSpeed;
-	double rotSpeed;
-	t_data img1;
-	t_data img2;
-	int ceiling_color;
-	int floor_color;
-	t_data texture[nbTextures];
-	int **worldMap;
-	int move_forward;
-	int move_backward;
-	int move_left;
-	int move_right;
-	int rotate_left;
-	int rotate_right;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	double	movespeed;
+	double	rotspeed;
+	t_data	img1;
+	t_data	img2;
+	int		ceiling_color;
+	int		floor_color;
+	t_data	texture[NBTEXTURES];
+	int		**worldmap;
+	int		move_forward;
+	int		move_backward;
+	int		move_left;
+	int		move_right;
+	int		rotate_left;
+	int		rotate_right;
 }	t_vars;
 
 
 int		raycasting(t_vars *vars);
-void	draw_line(t_vars *vars, int beginX, int beginY, int endX, int endY, int color);
+void	draw_vertical_line(t_vars *vars, int x, int begin_y, int end_y, int color);
 void	swap_imgs(t_vars *vars);
 void	custom_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 int		get_pixel_color(t_data *data, int x, int y);

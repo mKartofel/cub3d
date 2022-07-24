@@ -6,11 +6,11 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:49:49 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/22 18:57:21 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 15:46:55 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cu3d.h"
+#include "cub3d.h"
 
 int	key_pressed_hook(int keycode, t_vars *vars)
 {

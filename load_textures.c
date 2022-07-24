@@ -6,11 +6,11 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:58:59 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/30 11:02:59 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 15:46:55 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cu3d.h"
+#include "cub3d.h"
 
 /*Load the texture images for the game assets from the .xpm files*/
 void	load_textures(t_vars *vars)
