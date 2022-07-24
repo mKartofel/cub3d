@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 17:16:12 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:41:40 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,7 @@ void	init_vars_struct(t_vars *vars);
 void	init_mlx_and_img_buffers(t_vars *vars);
 void	set_init_direction(t_vars *vars, char dir);
 void	player_movement(t_vars *vars);
+void	rotate_left(t_vars *vars);
+void	rotate_right(t_vars *vars);
 
 #endif

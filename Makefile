@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/07/22 19:01:26 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/07/24 17:41:50 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS =	cub3d.c\
 		load_textures.c\
 		init.c\
 		player_movement.c\
+		camera_rotation.c\
 
 OBJS = ${SRCS:.c=.o}
 
@@ -57,7 +58,7 @@ clean:
 fclean: clean
 	${MAKE} fclean -C ./libft
 	${RM} *.o
-	${RM} cub3d
+	${RM} ${NAME}
 
 re: fclean all
 
