@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 16:43:36 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:12:14 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int worldmap[MAPWIDTH][MAPHEIGHT]=
 
 void	free_vars(t_vars *vars)
 {
-	int i;
-	
+	int	i;
+
 	if (vars->img1.img != NULL)
 		mlx_destroy_image(vars->mlx, vars->img1.img);
 	if (vars->img2.img != NULL)
@@ -81,7 +81,7 @@ int	close_red_cross(t_vars *vars)
 
 void	swap_imgs(t_vars *vars)
 {
-	void *tmp;
+	void	*tmp;
 
 	tmp = vars->img1.img;
 	vars->img1.img = vars->img2.img;
@@ -89,7 +89,6 @@ void	swap_imgs(t_vars *vars)
 	tmp = vars->img1.addr;
 	vars->img1.addr = vars->img2.addr;
 	vars->img2.addr = tmp;
-	//and bits / length ?
 }
 
 
@@ -108,17 +107,16 @@ int	main(int argc, char **argv)
 	init_vars_struct(&vars);
 
 	//read and parse map file
-	
+
 	vars.ceiling_color = 0x00D1FBFF;
 	vars.floor_color = 0x00A06528;
 
 	init_mlx_and_img_buffers(&vars);
-	
+
 	set_init_direction(&vars, 'E');
 
 	load_textures(&vars);
 
-	// mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 2, 1L << 0, key_pressed_hook, &vars);
 	mlx_hook(vars.win, 3, 1L << 1, key_released_hook, &vars);
 	mlx_hook(vars.win, 33, 1L << 5, close_red_cross, &vars);
