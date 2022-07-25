@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/25 19:11:03 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 19:14:37 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	main(int argc, char **argv)
 	data = parsing(argv[1]);
 	// if (data == NULL)
 	// 		Erreur de pasing finir ici
+	// 		regarde la structure pour les donnees | pour start_pos utilise les macros Y_start et X_start
 	(void)data;
 	vars.ceiling_color = convert_rgb_to_trgb(0, 102, 204, 255);
 	vars.floor_color = convert_rgb_to_trgb(0, 153, 102, 51);
