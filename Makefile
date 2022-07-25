@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/07/24 17:41:50 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/07/25 09:02:12 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME = cub3d
 
 SRCS =	cub3d.c\
 		raycasting.c\
+		raycasting_textures.c\
 		key_hook.c\
 		draw.c\
 		load_textures.c\

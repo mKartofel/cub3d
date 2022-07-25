@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 17:41:40 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/25 09:03:22 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,34 @@ typedef struct s_data {
 	int		line_length;
 	int		endian;
 }	t_data;
+
+typedef struct s_ray {
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	int		mapx;
+	int		mapy;
+	double	side_distx;
+	double	side_disty;
+	double	delta_distx;
+	double	delta_disty;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	char	side;
+	double	perpwalldist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_num;
+	double	wallx;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+	int		y;
+	int		color;
+}	t_ray;
 
 typedef struct s_vars {
 	void	*mlx;
@@ -76,5 +104,7 @@ void	set_init_direction(t_vars *vars, char dir);
 void	player_movement(t_vars *vars);
 void	rotate_left(t_vars *vars);
 void	rotate_right(t_vars *vars);
+void	find_texture_to_draw(t_vars *vars, t_ray *ray);
+void	draw_texture(t_vars *vars, t_ray *ray);
 
 #endif
