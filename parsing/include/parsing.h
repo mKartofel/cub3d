@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:27:19 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 12:14:27 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 18:12:38 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_map_data
 typedef struct s_parsing
 {
 	int				**tab;
+	size_t			tab_size;
 	char			*n_tpath;
 	char			*s_tpath;
 	char			*w_tpath;
@@ -59,18 +60,13 @@ typedef struct s_check_data
 	int		stop_cond;
 }	t_check_data;
 
-
 // Data
 int			set_pars_fc(char *line, int tab[]);
 int			set_pars_text(char **split_line, char **str);
 void		parse_map(t_pars *data, int fd);
 int			check_data(const int fd, t_pars *data);
 
-// Map
-
 // Utils - data
-int			free_split_line(char **split_line);
-void		free_data_pars(t_pars *data);
 int			open_file(char *path);
 int			is_wspace(char c);
 int			ft_error(char *str);
@@ -87,7 +83,12 @@ void		init_data_pars(t_pars *data);
 void		init_obj_check(t_check_data *obj, int fd);
 void		init_map_data(t_map_data *map_data);
 void		init_map_tab(t_map_data *map_data, t_pars *data);
-t_lines		*init_lines();
+t_lines		*init_lines(void);
+
+// free
+void		free_map_data(t_map_data *map_data);
+int			free_split_line(char **split_line);
+void		free_data_pars(t_pars *data);
 
 // +
 char		**ft_split_wspace(char *str);

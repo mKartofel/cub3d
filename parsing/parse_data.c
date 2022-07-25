@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:06:29 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/23 06:57:05 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 14:05:33 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,15 @@ static int	set_nu(char *str)
 		i++;
 	}
 	if (ret > 255 || ret < 0)
-		return (ft_error("Error\ncolor out of range\n"));
+		return (ERROR);
 	if (str[i] != ',' && str[i] != '\0')
-		return (ft_error("Error\nWrong format for [floor/ceileing]'s color"));
+		return (ERROR);
 	return (ret);
 }
 
 int	set_pars_fc(char *line, int tab[])
 {
 	char	**new_split_line;
-	char	*buff;
 	int		i;
 	int		check;
 
@@ -74,7 +73,6 @@ int	set_pars_fc(char *line, int tab[])
 	new_split_line = set_new_split_line(line);
 	while (new_split_line[++i] != NULL)
 	{
-		buff = new_split_line[i];
 		if (!new_split_line[i])
 			return (STOP_COND_ERROR);
 		while (new_split_line[i][++check] != '\0')
@@ -96,22 +94,16 @@ int	set_pars_text(char **split_line, char **str)
 	if (split_line[1] == NULL)
 		return (STOP_COND_ERROR);
 	if (ft_strlen(split_line[1]) == 0)
-	{
-		ft_error("Error\nno path for [NO/SO/EA/WE]\n");
 		return (STOP_COND_ERROR);
-	}
 	if (split_line[2] != NULL)
-	{
-		ft_error("error\nto much argument for [NO/SO/EA/WE] - needed one only\n");
 		return (STOP_COND_ERROR);
-	}
 	if (access(split_line[1], R_OK) != 0)
 	{
 		perror(split_line[1]);
 		return (STOP_COND_ERROR);
 	}
 	if (*str != NULL)
-		return (ft_error("Error\nFiled allready assigned\n ") + STOP_COND_ERROR);
+		return (STOP_COND_ERROR);
 	*str = (char *)malloc(sizeof(char) * (ft_strlen(split_line[1]) + 1));
 	if (str == NULL)
 		return (STOP_COND_ERROR);

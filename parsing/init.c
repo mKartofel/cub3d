@@ -6,12 +6,11 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 02:41:00 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 12:13:47 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 18:10:38 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/parsing.h"
-
 
 void	init_map_data(t_map_data *map_data)
 {
@@ -20,7 +19,7 @@ void	init_map_data(t_map_data *map_data)
 	map_data->size_y = 0;
 }
 
-t_lines	*init_lines()
+t_lines	*init_lines(void)
 {
 	t_lines		*ret;
 
@@ -35,12 +34,14 @@ t_lines	*init_lines()
 void	init_data_pars(t_pars *data)
 {
 	data->tab = NULL;
+	data->tab_size = 0;
 	data->n_tpath = NULL;
 	data->s_tpath = NULL;
 	data->w_tpath = NULL;
 	data->e_tpath = NULL;
 	data->start_pos[Y_START] = -1;
 	data->start_pos[X_START] = -1;
+	data->map_data = NULL;
 	return ;
 }
 
@@ -52,7 +53,7 @@ void	init_obj_check(t_check_data *obj, int fd)
 
 void	init_map_tab(t_map_data *map_data, t_pars *data)
 {
-	int			i;
+	size_t			i;
 
 	i = 0;
 	data->tab = (int **)malloc(sizeof(int *) * map_data->size_y);

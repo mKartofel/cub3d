@@ -6,13 +6,13 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 17:25:30 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 12:02:51 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 18:10:01 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/parsing.h"
 
-int		should_inmap(char *c)
+int	should_inmap(char *c)
 {
 	int			ret;
 	int			i;
@@ -41,9 +41,8 @@ void	add_lines(t_lines *line, t_lines *old_line)
 
 int	get_tab_size_x(int fd, t_map_data *map_data)
 {
-	char	*line;
-	t_lines	*buff;
-	int		i;
+	t_lines		*buff;
+	size_t		i;
 
 	i = 0;
 	buff = map_data->lines;
@@ -60,7 +59,7 @@ int	get_tab_size_x(int fd, t_map_data *map_data)
 		i = 0;
 		buff->next = init_lines();
 		buff = buff->next;
- 		buff->line = get_next_line(fd);
+		buff->line = get_next_line(fd);
 	}
 	if (map_data->size_x == 0)
 		return (ERROR);
@@ -76,10 +75,10 @@ int	get_tab_size_y(t_map_data *map_data)
 	tmp_2 = map_data->lines;
 	while (tmp_1 != NULL && tmp_1->line != NULL)
 	{
-		while(tmp_2 != NULL && tmp_2->line != NULL)
+		while (tmp_2 != NULL && tmp_2->line != NULL)
 		{
 			if (ft_strchr(tmp_2->line, '1'))
-				break;
+				break ;
 			tmp_2 = tmp_2->next;
 		}
 		if (tmp_2 == NULL)
@@ -107,9 +106,9 @@ int	get_tab_start(int fd, t_map_data *map_data)
 		line = get_next_line(fd);
 		split_line = ft_split_wspace(line);
 	}
+	free_split_line(split_line);
 	if (line == NULL)
 		return (ERROR);
 	map_data->lines->line = line;
-	free(split_line);
 	return (SUCCESS);
 }

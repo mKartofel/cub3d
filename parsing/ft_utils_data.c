@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 03:38:31 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/23 05:59:48 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 13:32:26 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,36 +29,6 @@ int	open_file(char *path)
 	else
 		return (ret);
 	return (ERROR);
-}
-
-int	free_split_line(char **split_line)
-{
-	int		i;
-
-	i = 0;
-	if (split_line == NULL)
-		return (STOP_COND_ERROR);
-	while (split_line[i])
-	{
-		free(split_line[i]);
-		i++;
-	}
-	free(split_line);
-	return (STOP_COND_ERROR);
-}
-
-void	free_data_pars(t_pars *data)
-{
-	// rajouter le free du tab quand initialise
-	if (data->n_tpath)
-		free(data->n_tpath);
-	if (data->e_tpath)
-		free(data->e_tpath);
-	if (data->s_tpath)
-		free(data->s_tpath);
-	if (data->w_tpath)
-		free(data->w_tpath);
-	free(data);
 }
 
 int	ft_error(char *str)
