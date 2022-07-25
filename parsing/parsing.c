@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:26:55 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 03:17:21 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 13:09:15 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_data(const int fd, t_pars *data)
 			obj.stop_cond += set_pars_fc(obj.line, data->fcolor);
 		else if (obj.split_line && obj.split_line[0])
 			check_text_data(&obj, data);
-		else if (obj.line && obj.split_line[0])
+		else if (obj.line && obj.split_line[0]) // aucun sens
 			obj.stop_cond = ft_error("Incorect data identifier format\n");
 		free(obj.line);
 		if (obj.stop_cond >= 0)
@@ -64,7 +64,6 @@ t_pars	*parsing(char *arg)
 	if (!data)
 		return (NULL);
 	init_data_pars(data);
-	printf("---Parsing data----\n");
 	if (check_data(fd, data) != 6)
 	{
 		ft_error("Error\nMiss some datas for correct parsing\n");
@@ -72,7 +71,6 @@ t_pars	*parsing(char *arg)
 		return (NULL);
 	}
 	// check de la map
-	printf("---Parsing map----\n");
 	parse_map(data, 3);
 	return (data);
 }

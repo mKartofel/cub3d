@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 02:41:00 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 04:14:51 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 12:13:47 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	init_data_pars(t_pars *data)
 	data->s_tpath = NULL;
 	data->w_tpath = NULL;
 	data->e_tpath = NULL;
+	data->start_pos[Y_START] = -1;
+	data->start_pos[X_START] = -1;
 	return ;
 }
 

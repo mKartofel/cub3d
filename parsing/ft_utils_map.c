@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 17:25:30 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 03:37:34 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 12:02:51 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	get_tab_size_x(int fd, t_map_data *map_data)
 		buff = buff->next;
  		buff->line = get_next_line(fd);
 	}
+	if (map_data->size_x == 0)
+		return (ERROR);
 	return (SUCCESS);
 }
 
@@ -86,5 +88,28 @@ int	get_tab_size_y(t_map_data *map_data)
 		tmp_1 = tmp_1->next;
 		tmp_2 = tmp_1;
 	}
+	return (SUCCESS);
+}
+
+int	get_tab_start(int fd, t_map_data *map_data)
+{
+	char	*line;
+	char	**split_line;
+
+	line = get_next_line(fd);
+	if (line == NULL)
+		return (ERROR);
+	split_line = ft_split_wspace(line);
+	while (line != NULL && split_line[0] == NULL)
+	{
+		free(line);
+		free_split_line(split_line);
+		line = get_next_line(fd);
+		split_line = ft_split_wspace(line);
+	}
+	if (line == NULL)
+		return (ERROR);
+	map_data->lines->line = line;
+	free(split_line);
 	return (SUCCESS);
 }
