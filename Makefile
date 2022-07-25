@@ -3,39 +3,56 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
+#    By: asimon <asimon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/07/25 11:45:14 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/07/25 18:29:50 by asimon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT_A = ./libft/libft.a
+LIBFT_A 		= ./libft/libft.a
 
-NAME = cub3d
+NAME 			= cub3d
 
-SRCS =	cub3d.c\
-		raycasting.c\
-		raycasting_textures.c\
-		key_hook.c\
-		draw.c\
-		load_textures.c\
-		init.c\
-		player_movement.c\
-		camera_rotation.c\
-		utils.c\
+C_FILE 			=	cub3d.c					\
+					raycasting.c			\
+					raycasting_textures.c	\
+					key_hook.c				\
+					draw.c					\
+					load_textures.c			\
+					init.c					\
+					player_movement.c		\
+					camera_rotation.c		\
+					utils.c					\
 
-OBJS = ${SRCS:.c=.o}
+PARSING			=	free_fct.c				\
+					ft_split_wspace.c		\
+					ft_utils_data.c			\
+					ft_utils_map.c			\
+					init_pars.c				\
+					init.c					\
+					parse_data.c			\
+					parse_map.c				\
+					parsing.c
 
-INCLUDES = cub3d.h
+PARSING_DIR		=	./parsing/
 
-CC = gcc
+P_FILE			=	$(addprefix $(PARSING_DIR), $(PARSING))
 
-RM = rm -f
+SRCS			=	$(C_FILE)	\
+					$(F_FILE)
 
-FLAGS = -Wall -Wextra -Werror -g
+OBJS 			= ${SRCS:.c=.o}
 
-LIBS = -L ./mlx -lmlx -L/usr/X11/include/../lib -lXext -lX11 -lm
+INCLUDES 		= cub3d.h
+
+CC 				= gcc
+
+RM 				= rm -f
+
+FLAGS 			= -Wall -Wextra -Werror -g
+
+LIBS 			= -L ./mlx -lmlx -L/usr/X11/include/../lib -lXext -lX11 -lm
 
 .c.o: ${INCLUDES}
 	${CC} ${FLAGS} -c $ $< -o ${<:.c=.o}
