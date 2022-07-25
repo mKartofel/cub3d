@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/30 11:09:19 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/07/25 11:45:14 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,14 @@ NAME = cub3d
 
 SRCS =	cub3d.c\
 		raycasting.c\
+		raycasting_textures.c\
 		key_hook.c\
 		draw.c\
 		load_textures.c\
 		init.c\
+		player_movement.c\
+		camera_rotation.c\
+		utils.c\
 
 OBJS = ${SRCS:.c=.o}
 
@@ -44,7 +48,7 @@ makemlx:
 makelibft:
 	${MAKE} -C ./libft
 
-${NAME} : ${OBJS}
+${NAME} : ${OBJS} ${INCLUDES}
 	
 	${CC} ${FLAGS} ${OBJS} ${LIBFT_A} -o ${NAME} ${LIBS}
 
@@ -56,7 +60,7 @@ clean:
 fclean: clean
 	${MAKE} fclean -C ./libft
 	${RM} *.o
-	${RM} cub3d
+	${RM} ${NAME}
 
 re: fclean all
 

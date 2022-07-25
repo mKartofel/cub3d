@@ -6,160 +6,161 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:12:23 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/30 11:40:27 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/25 09:01:57 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cu3d.h"
+#include "cub3d.h"
 
-int raycasting(t_vars *vars)
+/**
+ * @brief Calculate ray position and direction.
+ * camerax is between -1 and 1, it is a projection of the x of the real
+ * screen to the x of the camera plane.
+ * mapx and mapy are the coordinates of the map square the player is in.
+ * delta_distx is the dist covered by the ray in dir y if we move 1 step
+ * in dir x.
+ * 1e30 is infinity, it is used when protecting against division by 0.
+ * 
+ * @param vars 
+ * @param ray 
+ */
+void	calc_ray_pos_and_dir(t_vars *vars, t_ray *ray)
 {
-	int x;
+	ray->camerax = 2 * vars->x / (double)SCREENWIDTH - 1;
+	ray->raydirx = vars->dirx + vars->planex * ray->camerax;
+	ray->raydiry = vars->diry + vars->planey * ray->camerax;
+	ray->mapx = (int)(vars->posx);
+	ray->mapy = (int)(vars->posy);
+	if (ray->raydirx == 0)
+		ray->delta_distx = 1e30;
+	else
+		ray->delta_distx = sqrt(1 + (ray->raydiry * ray->raydiry)
+				/ (ray->raydirx * ray->raydirx));
+	if (ray->raydiry == 0)
+		ray->delta_disty = 1e30;
+	else
+		ray->delta_disty = sqrt(1 + (ray->raydirx * ray->raydirx)
+				/ (ray->raydiry * ray->raydiry));
+	ray->hit = 0;
+}
 
-	x = 0;
-	while (x < screenWidth)
+/**
+ * @brief stepx is negative if the ray direction (raydir vector) has a negative
+ * x value.
+ * side_distx is the distance between the ray starting position and the first
+ * side of the map square to the left/right.
+ * 
+ * @param vars 
+ * @param ray 
+ */
+void	calc_step_and_initial_side_dist(t_vars *vars, t_ray *ray)
+{
+	if (ray->raydirx < 0)
 	{
-		//calculate ray position and direction
-		double cameraX = 2 * x / (double)screenWidth - 1; //x-coordinate in camera space
-		double raydirX = vars->dirX + vars->planeX * cameraX;
-		double raydirY = vars->dirY + vars->planeY * cameraX;
-		//which box of the map we're in
-		int mapX = (int)(vars->posX);
-		int mapY = (int)(vars->posY);
+		ray->stepx = -1;
+		ray->side_distx = (vars->posx - ray->mapx) * ray->delta_distx;
+	}
+	else
+	{
+		ray->stepx = 1;
+		ray->side_distx = (ray->mapx + 1.0 - vars->posx) * ray->delta_distx;
+	}
+	if (ray->raydiry < 0)
+	{
+		ray->stepy = -1;
+		ray->side_disty = (vars->posy - ray->mapy) * ray->delta_disty;
+	}
+	else
+	{
+		ray->stepy = 1;
+		ray->side_disty = (ray->mapy + 1.0 - vars->posy) * ray->delta_disty;
+	}
+}
 
-		//length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
-
-		//length of ray from one x or y-side to next x or y-side
-		//these are derived as:
-		//deltaDistX = sqrt(1 + (rayvars.dirY * rayvars.dirY) / (rayvars.dirX * rayvars.dirX))
-		//deltaDistY = sqrt(1 + (rayvars.dirX * rayvars.dirX) / (rayvars.dirY * rayvars.dirY))
-		//which can be simplified to abs(|rayDir| / rayvars.dirX) and abs(|rayDir| / rayvars.dirY)
-		//where |rayDir| is the length of the vector (rayvars.dirX, rayvars.dirY). Its length,
-		//unlike (vars->dirX, vars->dirY) is not 1, however this does not matter, only the
-		//ratio between deltaDistX and deltaDistY matters, due to the way the DDA
-		//stepping further below works. So the values can be computed as below.
-		// Division through zero is prevented, even though technically that's not
-		// needed in C++ with IEEE 754 floating point values.
-		double deltaDistX = (raydirX == 0) ? 1e30 : fabs(1 / raydirX);
-		double deltaDistY = (raydirY == 0) ? 1e30 : fabs(1 / raydirY);
-
-		double perpWallDist;
-
-		//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
-
-		int hit = 0; //was there a wall hit?
-		char side; //was a NS or a EW wall hit?
-		//calculate step and initial sideDist
-		if(raydirX < 0)
+/**
+ * @brief Perform Digital Differential Analysis to find which wall square of
+ * the map the ray will hit.
+ * The ray is incremented by 1 square (either if the x-direction or the
+ * y-direction) each time until a wall is hit.
+ * When a wall is hit, we can determine from which side (N,S,E,W) it was hit.
+ * 
+ * @param ray 
+ */
+void	dda(t_ray *ray)
+{
+	while (ray->hit == 0)
+	{
+		if (ray->side_distx < ray->side_disty)
 		{
-			stepX = -1;
-			sideDistX = (vars->posX - mapX) * deltaDistX;
+			ray->side_distx += ray->delta_distx;
+			ray->mapx += ray->stepx;
+			if (ray->stepx == 1)
+				ray->side = 'N';
+			else if (ray->stepx == -1)
+				ray->side = 'S';
 		}
 		else
 		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - vars->posX) * deltaDistX;
+			ray->side_disty += ray->delta_disty;
+			ray->mapy += ray->stepy;
+			if (ray->stepy == -1)
+				ray->side = 'E';
+			else if (ray->stepy == 1)
+				ray->side = 'W';
 		}
-		if(raydirY < 0)
-		{
-			stepY = -1;
-			sideDistY = (vars->posY - mapY) * deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - vars->posY) * deltaDistY;
-		}
-		//perform DDA
-		while(hit == 0)
-		{
-			//jump to next map square, either in x-direction, or in y-direction
-			if(sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				if (stepX == 1)
-					side = 'N';
-				else if (stepX == -1)
-					side = 'S';
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				if (stepY == -1)
-					side = 'E';
-				else if (stepY == 1)
-					side = 'W';
-			}
-			//Check if ray has hit a wall
-			if(worldMap[mapX][mapY] > 0)
-				hit = 1;
-		}
-		//Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
-		//hit to the camera plane. Euclidean to center camera point would give fisheye effect!
-		//This can be computed as (mapX - posX + (1 - stepX) / 2) / raydirX for side == 0, or same formula with Y
-		//for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
-		//because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
-		//steps, but we subtract deltaDist once because one step more into the wall was taken above.
-		if(side == 'N' || side == 'S') perpWallDist = (sideDistX - deltaDistX);
-		else          perpWallDist = (sideDistY - deltaDistY);
+		if (worldmap[ray->mapx][ray->mapy] > 0)
+			ray->hit = 1;
+	}
+}
 
-		//Calculate height of line to draw on screen
-		int lineHeight = (int)(screenHeight / perpWallDist);
+/**
+ * @brief Calculate the perpendicular (shortest) distance from the point where
+ * the ray hit the wall to the camera plane to avoid the fisheye effect.
+ * Then, with the distance to the wall calculated we can calculate the height
+ * of the vertical line (stripe) to draw on the screen so that it represents
+ * the wall according to its distance to the player.
+ * draw_start and draw_end are the pixel points around the center of the screen
+ * where we will start and end the vertical stripe.
+ * 
+ * @param vars 
+ * @param ray 
+ */
+void	calc_perpwalldist(t_vars *vars, t_ray *ray)
+{
+	if (ray->side == 'N' || ray->side == 'S')
+		ray->perpwalldist = (ray->mapx - vars->posx + (1 - ray->stepx) / 2)
+			/ ray->raydirx;
+	else
+		ray->perpwalldist = (ray->mapy - vars->posy + (1 - ray->stepy) / 2)
+			/ ray->raydiry;
+	ray->line_height = (int)(SCREENHEIGHT / ray->perpwalldist);
+	ray->draw_start = (SCREENHEIGHT / 2) - (ray->line_height / 2);
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = (SCREENHEIGHT / 2) + (ray->line_height / 2);
+	if (ray->draw_end >= SCREENHEIGHT)
+		ray->draw_end = SCREENHEIGHT - 1;
+}
 
-		//calculate lowest and highest pixel to fill in current stripe
-		int drawStart = -lineHeight / 2 + screenHeight / 2;
-		if(drawStart < 0) drawStart = 0;
-		int drawEnd = lineHeight / 2 + screenHeight / 2;
-		if(drawEnd >= screenHeight) drawEnd = screenHeight - 1;
+int	raycasting(t_vars *vars)
+{
+	t_ray	ray;
 
-		//select the correct texture to use
-		int texNum;
-		if (side == 'N')
-			texNum = 0;
-		else if (side == 'S')
-			texNum = 1;
-		else if (side == 'E')
-			texNum = 2;
-		else if (side == 'W')
-			texNum = 3;	
-
-		//calculate value of wallX
-		double wallX; //where exactly the wall was hit
-		if (side == 'N' || side == 'S') wallX = vars->posY + perpWallDist * raydirY;
-		else           wallX = vars->posX + perpWallDist * raydirX;
-		wallX -= floor((wallX)); //substrat integer value from it (only keep decimal value)
-
-		//x coordinate on the texture
-		int texX = (int)(wallX * (double)texWidth);
-		if((side == 'N' || side == 'S') && raydirX > 0)
-			texX = texWidth - texX - 1;
-		if((side == 'E' || side == 'W') && raydirY < 0)
-			texX = texWidth - texX - 1;
-
-		// How much to increase the texture coordinate per screen pixel
-		double step = 1.0 * texHeight / lineHeight;
-		// Starting texture coordinate
-		double texPos = (drawStart - screenHeight / 2 + lineHeight / 2) * step;
-		for(int y = drawStart; y<drawEnd; y++)
-		{
-			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			int texY = (int)texPos & (texHeight - 1);
-			texPos += step;
-				
-			int color = get_pixel_color(&vars->texture[texNum], texX, texY);
-			custom_mlx_pixel_put(vars, x, y, color);
-		}
-		draw_line(vars, x, 0, x, drawStart, vars->ceiling_color); //draw ceiling line
-		draw_line(vars, x, drawEnd, x, screenHeight, vars->floor_color); //draw floor line
-		x++;
+	vars->x = 0;
+	while (vars->x < SCREENWIDTH)
+	{
+		calc_ray_pos_and_dir(vars, &ray);
+		calc_step_and_initial_side_dist(vars, &ray);
+		dda(&ray);
+		calc_perpwalldist(vars, &ray);
+		find_texture_to_draw(vars, &ray);
+		draw_texture(vars, &ray);
+		draw_vertical_line(vars, 0, ray.draw_start, vars->ceiling_color);
+		draw_vertical_line(vars, ray.draw_end, SCREENHEIGHT, vars->floor_color);
+		vars->x++;
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img1.img, 0, 0);
+	player_movement(vars);
 	swap_imgs(vars);
 	return (0);
 }

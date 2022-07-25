@@ -6,13 +6,13 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/30 11:09:00 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/25 09:42:01 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cu3d.h"
+#include "cub3d.h"
 
-int worldMap[mapWidth][mapHeight]=
+int worldmap[MAPWIDTH][MAPHEIGHT]=
 {
   {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
   {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
@@ -42,14 +42,14 @@ int worldMap[mapWidth][mapHeight]=
 
 void	free_vars(t_vars *vars)
 {
-	int i;
-	
+	int	i;
+
 	if (vars->img1.img != NULL)
 		mlx_destroy_image(vars->mlx, vars->img1.img);
 	if (vars->img2.img != NULL)
 		mlx_destroy_image(vars->mlx, vars->img2.img);
 	i = 0;
-	while (i < nbTextures)
+	while (i < NBTEXTURES)
 	{
 		if (vars->texture[i].img)
 			mlx_destroy_image(vars->mlx, vars->texture[i].img);
@@ -66,7 +66,8 @@ void	free_vars(t_vars *vars)
 
 int	close_program(t_vars *vars, int ret)
 {
-	mlx_loop_end(vars->mlx);
+	if (vars->mlx)
+		mlx_loop_end(vars->mlx);
 	free_vars(vars);
 	exit(ret);
 }
@@ -80,7 +81,7 @@ int	close_red_cross(t_vars *vars)
 
 void	swap_imgs(t_vars *vars)
 {
-	void *tmp;
+	void	*tmp;
 
 	tmp = vars->img1.img;
 	vars->img1.img = vars->img2.img;
@@ -88,7 +89,6 @@ void	swap_imgs(t_vars *vars)
 	tmp = vars->img1.addr;
 	vars->img1.addr = vars->img2.addr;
 	vars->img2.addr = tmp;
-	//and bits / length ?
 }
 
 
@@ -107,18 +107,18 @@ int	main(int argc, char **argv)
 	init_vars_struct(&vars);
 
 	//read and parse map file
-	
-	vars.ceiling_color = 0x00D1FBFF;
-	vars.floor_color = 0x00A06528;
+
+	vars.ceiling_color = convert_rgb_to_trgb(0, 102, 204, 255);
+	vars.floor_color = convert_rgb_to_trgb(0, 153, 102, 51);
 
 	init_mlx_and_img_buffers(&vars);
-	
+
 	set_init_direction(&vars, 'E');
 
 	load_textures(&vars);
 
-	mlx_key_hook(vars.win, key_hook, &vars);
-	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);
+	mlx_hook(vars.win, 2, 1L << 0, key_pressed_hook, &vars);
+	mlx_hook(vars.win, 3, 1L << 1, key_released_hook, &vars);
 	mlx_hook(vars.win, 33, 1L << 5, close_red_cross, &vars);
 	mlx_loop_hook(vars.mlx, raycasting, &vars);
 	mlx_loop(vars.mlx);
