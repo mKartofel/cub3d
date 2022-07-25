@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/25 09:34:55 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:51:26 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 
 # define SCREENWIDTH 1080
 # define SCREENHEIGHT 810
-# define TEXWIDTH 64
-# define TEXHEIGHT 64
 # define MAPWIDTH 24
 # define MAPHEIGHT 24
 # define NBTEXTURES 4
@@ -33,6 +31,8 @@ typedef struct s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		img_width;
+	int		img_height;
 }	t_data;
 
 typedef struct s_ray {

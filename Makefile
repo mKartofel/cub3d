@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/07/25 09:34:40 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/07/25 11:45:14 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ makemlx:
 makelibft:
 	${MAKE} -C ./libft
 
-${NAME} : ${OBJS}
+${NAME} : ${OBJS} ${INCLUDES}
 	
 	${CC} ${FLAGS} ${OBJS} ${LIBFT_A} -o ${NAME} ${LIBS}
 

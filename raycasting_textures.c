@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 09:01:34 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/25 09:03:28 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:50:03 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@ void	find_texture_to_draw(t_vars *vars, t_ray *ray)
 		ray->tex_num = 2;
 	else if (ray->side == 'W')
 		ray->tex_num = 3;
-	ray->tex_x = (int)(ray->wallx * (double)TEXWIDTH);
+	ray->tex_x = (int)(ray->wallx
+			* (double)vars->texture[ray->tex_num].img_width);
 	if ((ray->side == 'N' || ray->side == 'S') && ray->raydirx > 0)
-		ray->tex_x = TEXWIDTH - ray->tex_x - 1;
+		ray->tex_x = vars->texture[ray->tex_num].img_width - ray->tex_x - 1;
 	if ((ray->side == 'E' || ray->side == 'W') && ray->raydiry < 0)
-		ray->tex_x = TEXWIDTH - ray->tex_x - 1;
+		ray->tex_x = vars->texture[ray->tex_num].img_width - ray->tex_x - 1;
 }
 
 /**
@@ -53,13 +54,14 @@ void	find_texture_to_draw(t_vars *vars, t_ray *ray)
  */
 void	draw_texture(t_vars *vars, t_ray *ray)
 {
-	ray->step = 1.0 * TEXHEIGHT / ray->line_height;
+	ray->step = 1.0 * vars->texture[ray->tex_num].img_height / ray->line_height;
 	ray->tex_pos = (ray->draw_start - SCREENHEIGHT / 2 + ray->line_height / 2)
 		* ray->step;
 	ray->y = ray->draw_start;
 	while (ray->y < ray->draw_end)
 	{
-		ray->tex_y = (int)ray->tex_pos & (TEXHEIGHT - 1);
+		ray->tex_y = (int)ray->tex_pos
+			& (vars->texture[ray->tex_num].img_height - 1);
 		ray->tex_pos += ray->step;
 		ray->color = get_pixel_color(&vars->texture[ray->tex_num], ray->tex_x,
 				ray->tex_y);
