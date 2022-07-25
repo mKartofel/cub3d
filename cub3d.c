@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/25 09:42:01 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:11:03 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,10 @@ void	swap_imgs(t_vars *vars)
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
+	t_pars	*data;
+	
 
 	(void)argc;
-	(void)argv;
 	// if (argc != 2 || ft_strrchr(argv[1], '.') == NULL || ft_strncmp(
 	// 		ft_strrchr(argv[1], '.'), ".cub", ft_strlen(argv[1])) != 0)
 	// {
@@ -107,7 +108,10 @@ int	main(int argc, char **argv)
 	init_vars_struct(&vars);
 
 	//read and parse map file
-
+	data = parsing(argv[1]);
+	// if (data == NULL)
+	// 		Erreur de pasing finir ici
+	(void)data;
 	vars.ceiling_color = convert_rgb_to_trgb(0, 102, 204, 255);
 	vars.floor_color = convert_rgb_to_trgb(0, 153, 102, 51);
 

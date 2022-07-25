@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:27:19 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 18:49:54 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 19:12:13 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define STOP_COND_ERROR -6
 # define CHECK 0
 # define MAX_VALUE 1
-# define Y_START 0
+# define Y_START 0 // for data->start_pos
 # define X_START 1
 
 typedef struct s_lines
