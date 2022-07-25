@@ -6,7 +6,7 @@
 #    By: asimon <asimon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/07/25 18:32:37 by asimon           ###   ########.fr        #
+#    Updated: 2022/07/25 18:43:20 by asimon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,7 @@ PARSING			=	free_fct.c				\
 					ft_split_wspace.c		\
 					ft_utils_data.c			\
 					ft_utils_map.c			\
-					init_pars.c				\
-					init_2.c					\
+					init_2.c				\
 					parse_data.c			\
 					parse_map.c				\
 					parsing.c
@@ -39,10 +38,13 @@ PARSING_DIR		=	./parsing/
 
 P_FILE			=	$(addprefix $(PARSING_DIR), $(PARSING))
 
-SRCS			=	$(C_FILE)	\
+SRCS			=	$(C_FILE)				\
 					$(P_FILE)
 
 OBJS 			= ${SRCS:.c=.o}
+
+O_FILE			=	./*.o					\
+					$(PARSING_DIR)*.o
 
 INCLUDES 		= cub3d.h
 
@@ -72,11 +74,11 @@ ${NAME} : ${OBJS} ${INCLUDES}
 clean:
 	${MAKE} clean -C ./mlx
 	${MAKE} clean -C ./libft
-	${RM} *.o
+	${RM} $(O_FILE)
 
 fclean: clean
 	${MAKE} fclean -C ./libft
-	${RM} *.o
+	${RM} $(O_FILE)
 	${RM} ${NAME}
 
 re: fclean all

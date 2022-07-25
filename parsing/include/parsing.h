@@ -6,13 +6,13 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:27:19 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 18:12:38 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 18:44:45 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
-# include "../../cu3d.h"
+# include "../../cub3d.h"
 # include <fcntl.h>
 # include <stdlib.h>
 
@@ -65,6 +65,12 @@ int			set_pars_fc(char *line, int tab[]);
 int			set_pars_text(char **split_line, char **str);
 void		parse_map(t_pars *data, int fd);
 int			check_data(const int fd, t_pars *data);
+
+// Map
+int			set_map_tab_pos(t_pars *data, char c, int *x, int y);
+int			check_map(t_pars *data);
+int			set_map_tab(t_pars *data);
+int			check_data_map(t_pars *data, size_t x, size_t y);
 
 // Utils - data
 int			open_file(char *path);
