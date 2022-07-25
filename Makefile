@@ -6,7 +6,7 @@
 #    By: asimon <asimon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/07/25 18:43:20 by asimon           ###   ########.fr        #
+#    Updated: 2022/07/25 19:17:12 by asimon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ PARSING			=	free_fct.c				\
 					ft_split_wspace.c		\
 					ft_utils_data.c			\
 					ft_utils_map.c			\
-					init_2.c				\
+					init_pars.c				\
 					parse_data.c			\
 					parse_map.c				\
 					parsing.c
