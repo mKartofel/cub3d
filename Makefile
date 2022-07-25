@@ -6,7 +6,7 @@
 #    By: asimon <asimon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/07/25 18:29:50 by asimon           ###   ########.fr        #
+#    Updated: 2022/07/25 18:32:37 by asimon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ PARSING			=	free_fct.c				\
 					ft_utils_data.c			\
 					ft_utils_map.c			\
 					init_pars.c				\
-					init.c					\
+					init_2.c					\
 					parse_data.c			\
 					parse_map.c				\
 					parsing.c
@@ -40,7 +40,7 @@ PARSING_DIR		=	./parsing/
 P_FILE			=	$(addprefix $(PARSING_DIR), $(PARSING))
 
 SRCS			=	$(C_FILE)	\
-					$(F_FILE)
+					$(P_FILE)
 
 OBJS 			= ${SRCS:.c=.o}
 
