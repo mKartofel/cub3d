@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/25 11:51:26 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:47:51 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 # include "mlx/mlx.h"
 # include "libft/libft.h"
+# include "./parsing/include/parsing.h"
 # include <math.h>
 # include <stdio.h>
 

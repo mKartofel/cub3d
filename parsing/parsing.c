@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:26:55 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 18:24:36 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 19:06:19 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	check_data(const int fd, t_pars *data)
 			obj.line = get_next_line(fd);
 		free_split_line(obj.split_line);
 	}
-	if (obj.line != NULL)
+	if (obj.line != NULL && obj.stop_cond > 0)
 		free(obj.line);
 	return (obj.stop_cond);
 }
@@ -93,7 +93,6 @@ t_pars	*parsing(char *arg)
 	if (check_data(fd, data) != 6)
 	{
 		ft_error("Error\nInvalid datas for correct parsing\n");
-		free_data_pars(data);
 		return (NULL);
 	}
 	parse_map(data, 3);
