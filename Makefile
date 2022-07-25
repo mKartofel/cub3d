@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/07/25 09:02:12 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/07/25 09:34:40 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS =	cub3d.c\
 		init.c\
 		player_movement.c\
 		camera_rotation.c\
+		utils.c\
 
 OBJS = ${SRCS:.c=.o}
 

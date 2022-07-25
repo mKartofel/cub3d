@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/25 09:03:22 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/25 09:34:55 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ void	rotate_left(t_vars *vars);
 void	rotate_right(t_vars *vars);
 void	find_texture_to_draw(t_vars *vars, t_ray *ray);
 void	draw_texture(t_vars *vars, t_ray *ray);
+int		convert_rgb_to_trgb(int t, int r, int g, int b);
 
 #endif

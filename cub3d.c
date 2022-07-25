@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 17:12:14 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/25 09:42:01 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int	main(int argc, char **argv)
 
 	//read and parse map file
 
-	vars.ceiling_color = 0x00D1FBFF;
-	vars.floor_color = 0x00A06528;
+	vars.ceiling_color = convert_rgb_to_trgb(0, 102, 204, 255);
+	vars.floor_color = convert_rgb_to_trgb(0, 153, 102, 51);
 
 	init_mlx_and_img_buffers(&vars);
 
