@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:26:55 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 19:06:19 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 19:09:37 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ t_pars	*parsing(char *arg)
 	if (check_data(fd, data) != 6)
 	{
 		ft_error("Error\nInvalid datas for correct parsing\n");
+		free_data_pars(data);
 		return (NULL);
 	}
 	parse_map(data, 3);
