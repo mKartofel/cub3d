@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:26:55 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/23 07:02:04 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:17:21 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ int	check_data(const int fd, t_pars *data)
 	while (obj.line != NULL && obj.stop_cond >= 0 && obj.stop_cond != 6)
 	{
 		obj.split_line = ft_split_wspace(obj.line);
-		if (obj.split_line && ft_strncmp(obj.split_line[0], "C", 2) == 0)
+		if (obj.split_line && obj.split_line[0]
+				&& ft_strncmp(obj.split_line[0], "C", 2) == 0)
 			obj.stop_cond += set_pars_fc(obj.line, data->ccolor);
-		else if (obj.split_line && ft_strncmp(obj.split_line[0], "F", 2) == 0)
+		else if (obj.split_line && obj.split_line[0]
+				&& ft_strncmp(obj.split_line[0], "F", 2) == 0)
 			obj.stop_cond += set_pars_fc(obj.line, data->fcolor);
-		else if (obj.split_line != NULL)
+		else if (obj.split_line && obj.split_line[0])
 			check_text_data(&obj, data);
-		else if (obj.line && obj.split_line)
+		else if (obj.line && obj.split_line[0])
 			obj.stop_cond = ft_error("Incorect data identifier format\n");
 		free(obj.line);
 		if (obj.stop_cond >= 0)
@@ -62,6 +64,7 @@ t_pars	*parsing(char *arg)
 	if (!data)
 		return (NULL);
 	init_data_pars(data);
+	printf("---Parsing data----\n");
 	if (check_data(fd, data) != 6)
 	{
 		ft_error("Error\nMiss some datas for correct parsing\n");
@@ -69,7 +72,8 @@ t_pars	*parsing(char *arg)
 		return (NULL);
 	}
 	// check de la map
-	parse_map(data, fd);
+	printf("---Parsing map----\n");
+	parse_map(data, 3);
 	return (data);
 }
 

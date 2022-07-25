@@ -6,13 +6,13 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 07:00:39 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/23 10:52:11 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:50:36 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/parsing.h"
 
-int	get_tab_start(int fd)
+int	get_tab_start(int fd, t_map_data *map_data)
 {
 	char	*line;
 	char	**split_line;
@@ -30,27 +30,24 @@ int	get_tab_start(int fd)
 	}
 	if (line == NULL)
 		return (ERROR);
-	free(line);
+	map_data->lines->line = line;
 	free(split_line);
-	return (1);
+	return (SUCCESS);
 }
 
-size_t	get_tab_size(int fd)
-{
-	int		ret;
-	char	*line;
-
-	ret = 0;
-	get_tab_start(fd);
-	return (ret);
-}
 
 void	parse_map(t_pars *data, int fd)
 {
-	int		size;  // definir la taille du tableau en premier lieu
+	t_map_data	map_data;
 	// verifier que les lignes sont bien ferme
 	// recuperation de
 
-
-	size = get_tab_size(fd);
+	init_map_data(&map_data);
+	get_tab_start(fd, &map_data);
+	if (get_tab_size_x(fd, &map_data) == ERROR)	
+		ft_error("Error\ninvalid map\n");
+	if (get_tab_size_y(&map_data) == ERROR)
+		ft_error("Error\nInvalid map\n");
+	init_map_tab(&map_data, data);
+	printf("tab_size x: |%zu|\ntab_size y: |%zu|\n", map_data.size_x, map_data.size_y);
 }
