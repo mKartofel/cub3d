@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:06:29 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 14:02:49 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 17:01:44 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ int	set_pars_text(char **split_line, char **str)
 	*str = (char *)malloc(sizeof(char) * (ft_strlen(split_line[1]) + 1));
 	if (str == NULL)
 		return (STOP_COND_ERROR);
-	ft_strlcpy(*str, split_line[1], ft_strlen(split_line[1]));
+	ft_strlcpy(*str, split_line[1], ft_strlen(split_line[1]) + 1);
 	return (1);
 }
