@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:26:55 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 19:09:37 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 13:58:11 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	parse_map(t_pars *data, int fd)
 		|| map_data.size_y < 3 || data->start_pos[Y_START] == -1)
 		ft_error("Error\nInvalid map\n");
 	free_map_data(&map_data);
+	close(fd);
 }
 
 int	check_text_data(t_check_data *obj, t_pars *data)

@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 07:00:39 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 12:34:56 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 14:01:15 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	set_map_tab_pos(t_pars *data, char c, int *x, int y)
 		data->start_pos[Y_START] = y;
 		data->start_pos[X_START] = *x;
 		data->orient = c;
-		return (1);
+		return (0);
 	}
 	else if (c == ' ')
 		return (2);

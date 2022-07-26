@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:27:19 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 19:12:13 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 14:03:21 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_check_data
 }	t_check_data;
 
 // Parsing
-t_pars	*parsing(char *arg);
+t_pars		*parsing(char *arg);
 
 // Data
 int			set_pars_fc(char *line, int tab[]);
