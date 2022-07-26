@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:06:29 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 20:57:23 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:06:54 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	set_pars_fc(char *line, int tab[])
 
 	i = -1;
 	check = -1;
+	if (tab[0] != -1)
+		return (STOP_COND_ERROR);
 	new_split_line = set_new_split_line(line);
 	while (new_split_line[++i] != NULL)
 	{
