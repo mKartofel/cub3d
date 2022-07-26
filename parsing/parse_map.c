@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 07:00:39 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 18:38:26 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 12:34:56 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ int	condition_set_map(int i[], t_pars *data, t_lines *buff)
 				buff->line[i[X]], &i[X], i[Y]);
 	}
 	else
-	{
-		printf("valeur de l'erreur: |%c|\n", buff->line[i[X]]);
-		printf("ici\n");
 		return (ERROR);
-	}
 	return (1);
 }
 
@@ -71,8 +67,6 @@ int	set_map_tab(t_pars *data)
 		{
 			if (condition_set_map(i, data, buff) != 1)
 				return (ERROR);
-			else
-				printf("%d", data->tab[i[Y]][i[X]]);
 		}
 		i[X] = -1;
 		i[Y]++;
