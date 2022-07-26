@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:27:19 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 16:34:12 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 19:49:31 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			ft_error(char *str);
 int			should_inmap(char *c);
 void		add_lines(t_lines *line, t_lines *old_line);
 int			get_tab_size_x(int fd, t_map_data *map_data);
-int			get_tab_size_y(t_map_data *map_data);
+int			get_tab_size_y(t_map_data *map_data, t_pars *data);
 int			get_tab_start(int fd, t_map_data *map_data);
 
 // Init
