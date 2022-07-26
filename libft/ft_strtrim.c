@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 12:23:13 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/05/26 09:47:30 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 13:54:05 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int	ft_isinset(char c, char const *set)
 	return (0);
 }
 
+
+#include <stdio.h>
 static size_t	ft_findbegin(char const *s1, char const *set)
 {
 	size_t	i;
@@ -49,7 +51,7 @@ static size_t	ft_findend(char const *s1, char const *set)
 	i = endofstr;
 	while (i > 0)
 	{
-		if (! ft_isinset(s1[i], set))
+		if (i > 0 && ! ft_isinset(s1[i], set))
 			return (i);
 		i--;
 	}
@@ -81,7 +83,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	i = ft_findbegin(s1, set);
 	j = ft_findend(s1, set);
-	if ((i == 0 && j == 0) || ft_strlen(s1) == 0)
+	if (ft_strlen(s1) == 0)
 		return (empty_malloc());
 	ret_str = malloc(sizeof(char) * (j - i + 2));
 	if (!ret_str)

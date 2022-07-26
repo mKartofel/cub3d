@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/26 17:17:20 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:24:15 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,19 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 	t_pars	*data;
 
+	check_args(argc, argv);
 	init_vars_struct(&vars);
 	data = parsing(argv[1]);
 	if (data == NULL)
 		exit(1);
 	vars.pars = data;
-	vars.ceiling_color = convert_rgb_to_trgb(0, data->ccolor[0],
-			data->ccolor[1], data->ccolor[2]);
-	vars.floor_color = convert_rgb_to_trgb(0, data->fcolor[0], data->fcolor[1],
-			data->fcolor[2]);
+	vars.ceiling_color = convert_rgb_to_trgb(0,
+			data->ccolor[0], data->ccolor[1], data->ccolor[2]);
+	vars.floor_color = convert_rgb_to_trgb(0,
+			data->fcolor[0], data->fcolor[1], data->fcolor[2]);
 	init_mlx_and_img_buffers(&vars);
-	vars.posx = data->start_pos[0];
-	vars.posy = data->start_pos[1];
+	vars.posx = data->start_pos[Y_START];
+	vars.posy = data->start_pos[X_START];
 	set_init_direction(&vars, data->orient);
 	load_textures(&vars);
 	mlx_hook(vars.win, 2, 1L << 0, key_pressed_hook, &vars);

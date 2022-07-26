@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_pars.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 02:41:00 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 18:10:38 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:57:46 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	init_data_pars(t_pars *data)
 {
 	data->tab = NULL;
 	data->tab_size = 0;
+	data->fcolor[0] = -1;
+	data->ccolor[0] = -1;
 	data->n_tpath = NULL;
 	data->s_tpath = NULL;
 	data->w_tpath = NULL;

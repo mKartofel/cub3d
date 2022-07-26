@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 17:25:30 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 18:10:01 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 17:05:54 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	get_tab_size_x(int fd, t_map_data *map_data)
 
 	i = 0;
 	buff = map_data->lines;
+	if (ft_strchr(buff->line, '1') == NULL)
+		return (ERROR);
 	map_data->size_x = ft_strlen(buff->line);
 	buff->next = init_lines();
 	buff = buff->next;
