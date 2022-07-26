@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:08:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 16:43:22 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:50:56 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,26 @@ void	init_mlx_and_img_buffers(t_vars *vars)
 {
 	vars->mlx = mlx_init();
 	if (vars->mlx == NULL)
-		close_program(vars, 1);
+		close_program(vars, 1, "mlx function fail");
 	vars->win = mlx_new_window(vars->mlx, SCREENWIDTH, SCREENHEIGHT, "cub3d");
 	if (vars->win == NULL)
-		close_program(vars, 1);
+		close_program(vars, 1, "mlx function fail");
 	vars->img1.img = mlx_new_image(vars->mlx, SCREENWIDTH, SCREENHEIGHT);
 	if (vars->img1.img == NULL)
-		close_program(vars, 1);
+		close_program(vars, 1, "mlx function fail");
 	vars->img1.addr = mlx_get_data_addr(vars->img1.img,
 			&vars->img1.bits_per_pixel, &vars->img1.line_length,
 			&vars->img1.endian);
 	if (vars->img1.addr == NULL)
-		close_program(vars, 1);
+		close_program(vars, 1, "mlx function fail");
 	vars->img2.img = mlx_new_image(vars->mlx, SCREENWIDTH, SCREENHEIGHT);
 	if (vars->img2.img == NULL)
-		close_program(vars, 1);
+		close_program(vars, 1, "mlx function fail");
 	vars->img2.addr = mlx_get_data_addr(vars->img2.img,
 			&vars->img2.bits_per_pixel, &vars->img2.line_length,
 			&vars->img2.endian);
 	if (vars->img2.addr == NULL)
-		close_program(vars, 1);
+		close_program(vars, 1, "mlx function fail");
 }
 
 void	set_init_direction2(t_vars *vars, char dir)

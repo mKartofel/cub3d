@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/26 13:24:32 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:47:49 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	custom_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 int		get_pixel_color(t_data *data, int x, int y);
 int		key_pressed_hook(int keycode, t_vars *vars);
 int		key_released_hook(int keycode, t_vars *vars);
-int		close_program(t_vars *vars, int ret);
+int		close_program(t_vars *vars, int ret, char *msg);
 void	load_textures(t_vars *vars);
 void	init_vars_struct(t_vars *vars);
 void	init_mlx_and_img_buffers(t_vars *vars);

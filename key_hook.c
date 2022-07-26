@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:49:49 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 17:17:26 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:51:29 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	key_pressed_hook(int keycode, t_vars *vars)
 {
 	if (keycode == 65307)
-		close_program(vars, 0);
+		close_program(vars, 0, NULL);
 	else if (keycode == 119)
 		vars->move_forward = 1;
 	else if (keycode == 115)

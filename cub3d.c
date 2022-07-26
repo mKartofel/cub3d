@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/26 17:24:15 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:44:22 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@ void	free_vars(t_vars *vars)
 	}
 }
 
-int	close_program(t_vars *vars, int ret)
+int	close_program(t_vars *vars, int ret, char *msg)
 {
 	if (vars->mlx)
 		mlx_loop_end(vars->mlx);
 	free_vars(vars);
+	if (msg)
+	{
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd(msg, 2);
+	}
 	exit(ret);
 }
 
