@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:58:59 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/26 15:03:18 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:22:04 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	load_textures2(t_vars *vars)
 {
 	vars->texture[2].img = mlx_xpm_file_to_image(vars->mlx,
-			vars->pars->w_tpath, &(vars->texture[2].img_width),
+			vars->pars->e_tpath, &(vars->texture[2].img_width),
 			&(vars->texture[2].img_height));
 	if (vars->texture[2].img == NULL)
 		close_program(vars, 1);
@@ -25,7 +25,7 @@ void	load_textures2(t_vars *vars)
 	if (vars->texture[2].addr == NULL)
 		close_program(vars, 1);
 	vars->texture[3].img = mlx_xpm_file_to_image(vars->mlx,
-			vars->pars->e_tpath, &(vars->texture[3].img_width),
+			vars->pars->w_tpath, &(vars->texture[3].img_width),
 			&(vars->texture[3].img_height));
 	if (vars->texture[3].img == NULL)
 		close_program(vars, 1);
