@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 07:00:39 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 15:46:17 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:34:22 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,24 +96,29 @@ int	check_data_map(t_pars *data, size_t x, size_t y)
 	return (0);
 }
 
-int	check_map(t_pars *data)
+int	parse_map(t_pars *data, int fd)
 {
-	size_t		x;
-	size_t		y;
+	t_map_data	map_data;
+	int			ret;
 
-	x = 0;
-	y = 0;
-	data->tab_size = data->map_data->size_y;
-	while (y < data->map_data->size_y)
-	{
-		while (x < data->map_data->size_x)
-		{
-			if (data->tab[y][x] == -1 || check_data_map(data, x, y))
-				return (ERROR);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	return (SUCCESS);
+	ret = 0;
+	data->map_data = &map_data;
+	init_map_data(&map_data);
+	ret = get_tab_start(fd, &map_data);
+	if (ret != ERROR)
+		ret = get_tab_size_x(fd, &map_data);
+	if (ret != ERROR)
+		ret = get_tab_size_y(&map_data);
+	if (ret != ERROR)
+		init_map_tab(&map_data, data);
+	if (ret != ERROR)
+		ret = set_map_tab(data);
+	if (ret != ERROR)
+		ret = check_map(data);
+	if (ret == ERROR || map_data.size_x < 3
+		|| map_data.size_y < 3 || data->start_pos[Y_START] == -1)
+		ret = ft_error("Error\nInvalid map\n");
+	free_map_data(&map_data);
+	close(fd);
+	return (ret);
 }

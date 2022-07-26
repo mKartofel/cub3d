@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:06:29 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 14:05:33 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 14:02:49 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**set_new_split_line(char *line)
 	char	*mod;
 	int		i;
 
-	i = 0;
+	i = -1;
 	ret = ft_split(line, ',');
 	if (!ret || !ret[0])
 		return (NULL);
@@ -31,12 +31,11 @@ char	**set_new_split_line(char *line)
 	ft_strlcpy(mod, &ret[0][1], ft_strlen(&ret[0][1]) + 1);
 	ret[0] = mod;
 	free(buff);
-	while (ret[i] != NULL)
+	while (ret[++i] != NULL)
 	{
 		buff = ret[i];
 		ret[i] = ft_strtrim(ret[i], " \n\t\n\r\v");
 		free(buff);
-		i++;
 	}
 	return (ret);
 }

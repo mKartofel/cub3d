@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:27:19 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 13:26:49 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:34:12 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ typedef struct s_check_data
 }	t_check_data;
 
 // Parsing
-t_pars	*parsing(char *arg);
+t_pars		*parsing(char *arg);
 
 // Data
 int			set_pars_fc(char *line, int tab[]);
 int			set_pars_text(char **split_line, char **str);
-void		parse_map(t_pars *data, int fd);
+int			parse_map(t_pars *data, int fd);
 int			check_data(const int fd, t_pars *data);
 
 // Map
