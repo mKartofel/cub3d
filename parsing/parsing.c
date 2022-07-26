@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:26:55 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 13:58:11 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 15:19:01 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	check_data(const int fd, t_pars *data)
 		else if (obj.split_line && obj.split_line[0]
 			&& ft_strncmp(obj.split_line[0], "F", 2) == 0)
 			obj.stop_cond += set_pars_fc(obj.line, data->fcolor);
-		else if (obj.split_line && obj.split_line[0])
-			check_text_data(&obj, data);
+		else if (check_text_data(&obj, data) > 0 )
+			obj.stop_cond += 1;
 		else if (obj.line && obj.split_line[0])
 			obj.stop_cond = STOP_COND_ERROR;
 		free(obj.line);
