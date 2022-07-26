@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:12:23 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/26 13:54:45 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:48:13 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void	calc_perpwalldist(t_vars *vars, t_ray *ray)
 	else
 		ray->perpwalldist = (ray->mapy - vars->posy + (1 - ray->stepy) / 2)
 			/ ray->raydiry;
+	if (ray->perpwalldist <= 0)
+		ray->perpwalldist = 0.1;
 	ray->line_height = (int)(SCREENHEIGHT / ray->perpwalldist);
 	ray->draw_start = (SCREENHEIGHT / 2) - (ray->line_height / 2);
 	if (ray->draw_start < 0)

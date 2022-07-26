@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/26 13:56:28 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:56:37 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,11 @@ int	main(int argc, char **argv)
 	data->e_tpath = "./images/greystone.xpm";
 	data->w_tpath = "./images/redbrick.xpm";
 	////
-
+	
 	init_mlx_and_img_buffers(&vars);
 	vars.posx = data->start_pos[0]; //x ou y ?
 	vars.posy = data->start_pos[1];
+
 	set_init_direction(&vars, data->orient);
 
 	load_textures(&vars);

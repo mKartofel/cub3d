@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:58:59 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/26 13:35:18 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:03:18 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void	load_textures2(t_vars *vars)
 /*Load the texture images for the game assets from the .xpm files*/
 void	load_textures(t_vars *vars)
 {
-	printf("HERE\n");
-	printf("%s\n",vars->pars->n_tpath);
-	printf("%s\n",vars->pars->s_tpath);
 	vars->texture[0].img = mlx_xpm_file_to_image(vars->mlx,
 			vars->pars->n_tpath, &(vars->texture[0].img_width),
 			&(vars->texture[0].img_height));

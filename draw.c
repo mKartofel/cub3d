@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:55:55 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 17:10:39 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:26:23 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	custom_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
 	char	*dst;
 
+	// printf("x=%d\n", x);
+	// printf("y=%d\n", y);
 	dst = vars->img1.addr + (y * vars->img1.line_length + x
 			* (vars->img1.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
