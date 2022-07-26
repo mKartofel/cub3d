@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:27:19 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 14:03:21 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:01:55 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_pars		*parsing(char *arg);
 // Data
 int			set_pars_fc(char *line, int tab[]);
 int			set_pars_text(char **split_line, char **str);
-void		parse_map(t_pars *data, int fd);
+int			parse_map(t_pars *data, int fd);
 int			check_data(const int fd, t_pars *data);
 
 // Map

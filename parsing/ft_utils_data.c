@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 03:38:31 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 14:13:44 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:30:14 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	open_file(char *path)
 	char	*buff;
 
 	buff = ft_strrchr(path, '.');
-	if(buff == NULL)
+	if (buff == NULL)
 		return (ERROR);
 	if (ft_strncmp(buff, ".cub", 4) != 0)
 		return (ft_error("Error\nmap format must be [[name].cub]\n"));

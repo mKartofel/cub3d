@@ -6,36 +6,32 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:26:55 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 15:19:01 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:31:19 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/parsing.h"
 
-void	parse_map(t_pars *data, int fd)
+int	check_map(t_pars *data)
 {
-	t_map_data	map_data;
-	int			ret;
+	size_t		x;
+	size_t		y;
 
-	ret = 0;
-	data->map_data = &map_data;
-	init_map_data(&map_data);
-	ret = get_tab_start(fd, &map_data);
-	if (ret != ERROR)
-		ret = get_tab_size_x(fd, &map_data);
-	if (ret != ERROR)
-		ret = get_tab_size_y(&map_data);
-	if (ret != ERROR)
-		init_map_tab(&map_data, data);
-	if (ret != ERROR)
-		ret = set_map_tab(data);
-	if (ret != ERROR)
-		ret = check_map(data);
-	if (ret == ERROR || map_data.size_x < 3
-		|| map_data.size_y < 3 || data->start_pos[Y_START] == -1)
-		ft_error("Error\nInvalid map\n");
-	free_map_data(&map_data);
-	close(fd);
+	x = 0;
+	y = 0;
+	data->tab_size = data->map_data->size_y;
+	while (y < data->map_data->size_y)
+	{
+		while (x < data->map_data->size_x)
+		{
+			if (data->tab[y][x] == -1 || check_data_map(data, x, y))
+				return (ERROR);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	return (SUCCESS);
 }
 
 int	check_text_data(t_check_data *obj, t_pars *data)
@@ -65,16 +61,16 @@ int	check_data(const int fd, t_pars *data)
 		else if (obj.split_line && obj.split_line[0]
 			&& ft_strncmp(obj.split_line[0], "F", 2) == 0)
 			obj.stop_cond += set_pars_fc(obj.line, data->fcolor);
-		else if (check_text_data(&obj, data) > 0 )
-			obj.stop_cond += 1;
-		else if (obj.line && obj.split_line[0])
+		else if (obj.split_line[0] && check_text_data(&obj, data) > 0)
+			obj.stop_cond = obj.stop_cond;
+		else if (obj.line && obj.split_line && obj.split_line[0])
 			obj.stop_cond = STOP_COND_ERROR;
 		free(obj.line);
-		if (obj.stop_cond >= 0)
+		if (obj.stop_cond >= 0 && obj.stop_cond != 6)
 			obj.line = get_next_line(fd);
 		free_split_line(obj.split_line);
 	}
-	if (obj.line != NULL && obj.stop_cond > 0)
+	if (obj.line != NULL && obj.stop_cond > 0 && obj.stop_cond != 6)
 		free(obj.line);
 	return (obj.stop_cond);
 }
@@ -97,6 +93,10 @@ t_pars	*parsing(char *arg)
 		free_data_pars(data);
 		return (NULL);
 	}
-	parse_map(data, 3);
+	if (parse_map(data, 3) == ERROR)
+	{
+		free_data_pars(data);
+		return (NULL);
+	}
 	return (data);
 }
