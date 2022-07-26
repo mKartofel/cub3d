@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 07:00:39 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 16:34:22 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 19:49:31 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	set_map_tab(t_pars *data)
 	{
 		while (++i[X] < (int)data->map_data->size_x)
 		{
-			if (condition_set_map(i, data, buff) != 1)
+			if (condition_set_map(i, data, buff) == ERROR)
 				return (ERROR);
 		}
 		i[X] = -1;
@@ -108,7 +108,7 @@ int	parse_map(t_pars *data, int fd)
 	if (ret != ERROR)
 		ret = get_tab_size_x(fd, &map_data);
 	if (ret != ERROR)
-		ret = get_tab_size_y(&map_data);
+		ret = get_tab_size_y(&map_data, data);
 	if (ret != ERROR)
 		init_map_tab(&map_data, data);
 	if (ret != ERROR)

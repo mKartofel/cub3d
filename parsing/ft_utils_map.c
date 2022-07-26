@@ -6,7 +6,7 @@
 /*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 17:25:30 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/26 17:05:54 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 19:49:28 by asimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	get_tab_size_x(int fd, t_map_data *map_data)
 	return (SUCCESS);
 }
 
-int	get_tab_size_y(t_map_data *map_data)
+int	get_tab_size_y(t_map_data *map_data, t_pars *data)
 {
 	t_lines		*tmp_1;
 	t_lines		*tmp_2;
@@ -86,6 +86,7 @@ int	get_tab_size_y(t_map_data *map_data)
 		if (tmp_2 == NULL)
 			return (SUCCESS);
 		map_data->size_y++;
+		data->tab_size = map_data->size_y;
 		tmp_1 = tmp_1->next;
 		tmp_2 = tmp_1;
 	}
