@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 02:27:19 by asimon            #+#    #+#             */
-/*   Updated: 2022/07/25 19:12:13 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 13:26:49 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
-# include "../../cub3d.h"
+// # include "../../cub3d.h"
+# include "../../libft/libft.h"
 # include <fcntl.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # define BUFFER_SIZE 1
 # define ERROR -1

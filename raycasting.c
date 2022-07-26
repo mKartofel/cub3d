@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:12:23 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/25 09:01:57 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 13:54:45 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	calc_step_and_initial_side_dist(t_vars *vars, t_ray *ray)
  * 
  * @param ray 
  */
-void	dda(t_ray *ray)
+void	dda(t_vars *vars, t_ray *ray)
 {
 	while (ray->hit == 0)
 	{
@@ -108,7 +108,7 @@ void	dda(t_ray *ray)
 			else if (ray->stepy == 1)
 				ray->side = 'W';
 		}
-		if (worldmap[ray->mapx][ray->mapy] > 0)
+		if (vars->pars->tab[ray->mapx][ray->mapy] == 1)
 			ray->hit = 1;
 	}
 }
@@ -151,7 +151,7 @@ int	raycasting(t_vars *vars)
 	{
 		calc_ray_pos_and_dir(vars, &ray);
 		calc_step_and_initial_side_dist(vars, &ray);
-		dda(&ray);
+		dda(vars, &ray);
 		calc_perpwalldist(vars, &ray);
 		find_texture_to_draw(vars, &ray);
 		draw_texture(vars, &ray);

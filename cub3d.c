@@ -3,47 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:13:37 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/25 19:14:37 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 13:56:28 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int worldmap[MAPWIDTH][MAPHEIGHT]=
-{
-  {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
-  {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-  {4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-  {4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-  {4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-  {4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
-  {4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
-  {4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-  {4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
-  {4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-  {4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
-  {4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
-  {6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-  {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-  {6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-  {4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
-  {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-  {4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
-  {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-  {4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
-  {4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-  {4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
-  {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-  {4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
-};
-
 void	free_vars(t_vars *vars)
 {
 	int	i;
 
+	if (vars->pars)
+		free_data_pars(vars->pars);
 	if (vars->img1.img != NULL)
 		mlx_destroy_image(vars->mlx, vars->img1.img);
 	if (vars->img2.img != NULL)
@@ -96,29 +70,43 @@ int	main(int argc, char **argv)
 {
 	t_vars	vars;
 	t_pars	*data;
-	
 
-	(void)argc;
-	// if (argc != 2 || ft_strrchr(argv[1], '.') == NULL || ft_strncmp(
-	// 		ft_strrchr(argv[1], '.'), ".cub", ft_strlen(argv[1])) != 0)
-	// {
-	// 	ft_putendl_fd("Error\nProgram usage : ./cub3d <map_path>.cub", 2);
-	// 	exit(1);
-	// }
+	if (argc != 2 || ft_strrchr(argv[1], '.') == NULL || ft_strncmp(
+			ft_strrchr(argv[1], '.'), ".cub", ft_strlen(argv[1])) != 0)
+	{
+		ft_putendl_fd("Error\nProgram usage : ./cub3d <map_path>.cub", 2);
+		exit(1);
+	}
 	init_vars_struct(&vars);
 
 	//read and parse map file
 	data = parsing(argv[1]);
-	// if (data == NULL)
-	// 		Erreur de pasing finir ici
-	// 		regarde la structure pour les donnees | pour start_pos utilise les macros Y_start et X_start
-	(void)data;
-	vars.ceiling_color = convert_rgb_to_trgb(0, 102, 204, 255);
-	vars.floor_color = convert_rgb_to_trgb(0, 153, 102, 51);
+	if (data == NULL)
+	{
+		//Erreur de pasing finir ici
+		exit(1);
+	}
+			
+	// regarde la structure pour les donnees | pour start_pos utilise les macros Y_start et X_start
+	// vars.ceiling_color = convert_rgb_to_trgb(0, 102, 204, 255);
+	// vars.floor_color = convert_rgb_to_trgb(0, 153, 102, 51);
+
+	vars.pars = data;
+	
+	vars.ceiling_color = convert_rgb_to_trgb(0, data->ccolor[0], data->ccolor[1], data->ccolor[2]);
+	vars.floor_color = convert_rgb_to_trgb(0, data->fcolor[0], data->fcolor[1], data->fcolor[2]);
+
+	////a retirer
+	data->n_tpath = "./images/colorstone.xpm";
+	data->s_tpath = "./images/wood.xpm";
+	data->e_tpath = "./images/greystone.xpm";
+	data->w_tpath = "./images/redbrick.xpm";
+	////
 
 	init_mlx_and_img_buffers(&vars);
-
-	set_init_direction(&vars, 'E');
+	vars.posx = data->start_pos[0]; //x ou y ?
+	vars.posy = data->start_pos[1];
+	set_init_direction(&vars, data->orient);
 
 	load_textures(&vars);
 

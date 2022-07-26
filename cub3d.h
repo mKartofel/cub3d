@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:07:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/25 18:47:51 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 13:24:32 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@
 
 # define SCREENWIDTH 1080
 # define SCREENHEIGHT 810
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
 # define NBTEXTURES 4
-
-extern int worldmap[MAPWIDTH][MAPHEIGHT]; //enlever quand on a la vraie map !
 
 typedef struct s_data {
 	void	*img;
@@ -80,7 +76,6 @@ typedef struct s_vars {
 	int		ceiling_color;
 	int		floor_color;
 	t_data	texture[NBTEXTURES];
-	int		**worldmap;
 	int		move_forward;
 	int		move_backward;
 	int		move_left;
@@ -88,6 +83,7 @@ typedef struct s_vars {
 	int		rotate_left;
 	int		rotate_right;
 	int		x;
+	t_pars	*pars;
 }	t_vars;
 
 int		raycasting(t_vars *vars);

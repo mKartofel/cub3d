@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:35:39 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/24 17:40:36 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 13:04:01 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ void	move_forward_backward(t_vars *vars)
 {
 	if (vars->move_forward)
 	{
-		if (worldmap[(int)(vars->posx + vars->dirx * vars->movespeed)]
+		if (vars->pars->tab[(int)(vars->posx + vars->dirx * vars->movespeed)]
 				[(int)(vars->posy)] == 0)
 			vars->posx += vars->dirx * vars->movespeed;
-		if (worldmap[(int)(vars->posx)][(int)(vars->posy + vars->diry
+		if (vars->pars->tab[(int)(vars->posx)][(int)(vars->posy + vars->diry
 				* vars->movespeed)] == 0)
 			vars->posy += vars->diry * vars->movespeed;
 	}
 	if (vars->move_backward)
 	{
-		if (worldmap[(int)(vars->posx - vars->dirx * vars->movespeed)]
+		if (vars->pars->tab[(int)(vars->posx - vars->dirx * vars->movespeed)]
 				[(int)(vars->posy)] == 0)
 			vars->posx -= vars->dirx * vars->movespeed;
-		if (worldmap[(int)(vars->posx)][(int)(vars->posy - vars->diry
+		if (vars->pars->tab[(int)(vars->posx)][(int)(vars->posy - vars->diry
 				* vars->movespeed)] == 0)
 			vars->posy -= vars->diry * vars->movespeed;
 	}
@@ -49,10 +49,10 @@ void	move_left(t_vars *vars)
 		angle = 90 * M_PI / 180;
 		dirx = dirx * cos(angle) - diry * sin(angle);
 		diry = olddirx * sin(angle) + diry * cos(angle);
-		if (worldmap[(int)(vars->posx + dirx * vars->movespeed)]
+		if (vars->pars->tab[(int)(vars->posx + dirx * vars->movespeed)]
 			[(int)(vars->posy)] == 0)
 			vars->posx += dirx * vars->movespeed;
-		if (worldmap[(int)(vars->posx)][(int)(vars->posy + diry
+		if (vars->pars->tab[(int)(vars->posx)][(int)(vars->posy + diry
 			* vars->movespeed)] == 0)
 			vars->posy += diry * vars->movespeed;
 	}
@@ -73,10 +73,10 @@ void	move_right(t_vars *vars)
 		angle = 90 * M_PI / 180;
 		dirx = dirx * cos(-angle) - diry * sin(-angle);
 		diry = olddirx * sin(-angle) + diry * cos(-angle);
-		if (worldmap[(int)(vars->posx + dirx * vars->movespeed)]
+		if (vars->pars->tab[(int)(vars->posx + dirx * vars->movespeed)]
 			[(int)(vars->posy)] == 0)
 			vars->posx += dirx * vars->movespeed;
-		if (worldmap[(int)(vars->posx)][(int)(vars->posy + diry
+		if (vars->pars->tab[(int)(vars->posx)][(int)(vars->posy + diry
 			* vars->movespeed)] == 0)
 			vars->posy += diry * vars->movespeed;
 	}
