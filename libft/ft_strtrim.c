@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 12:23:13 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/26 17:28:57 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/07/26 20:56:27 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	k;
 	char	*ret_str;
 
-	if (!s1 || !set)
+	if (!s1 || !set || s1[0] == '\0')
 		return (NULL);
 	i = ft_findbegin(s1, set);
 	j = ft_findend(s1, set);
