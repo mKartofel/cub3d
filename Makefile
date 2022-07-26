@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asimon <asimon@student.42.fr>              +#+  +:+       +#+         #
+#    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 18:10:03 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/07/25 19:17:12 by asimon           ###   ########.fr        #
+#    Updated: 2022/07/26 15:41:47 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 LIBFT_A 		= ./libft/libft.a
 
-NAME 			= cub3d
+NAME 			= cub3D
 
 C_FILE 			=	cub3d.c					\
 					raycasting.c			\
