@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 12:23:13 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/07/26 13:54:05 by asimon           ###   ########.fr       */
+/*   Updated: 2022/07/26 17:28:57 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static int	ft_isinset(char c, char const *set)
 	return (0);
 }
 
-
-#include <stdio.h>
 static size_t	ft_findbegin(char const *s1, char const *set)
 {
 	size_t	i;
