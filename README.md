@@ -31,3 +31,4 @@ Esc key to exit.
 ## Credits
 * [Lode's Computer Graphics Tutorial on Raycasting](https://lodev.org/cgtutor/raycasting.html)
 * Wolfenstein 3D textures from ID Software
+* [MinilibX](https://github.com/42Paris/minilibx-linux)
